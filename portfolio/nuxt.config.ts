@@ -4,6 +4,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   app: {
-    cdnURL: "/yishigami-lifemap.github.io//",
+    cdnURL: "/yishigami-lifemap.github.io/",
   },
 });
