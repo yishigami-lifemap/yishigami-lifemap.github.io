@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     prerender: {
       routes: ["/"],
     },
+    // 静的生成時のアセットパス設定
+    output: {
+      publicDir: "dist",
+    },
   },
   // GitHub Pages用の設定
   app: {
