@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     payloadExtraction: false,
   },
   // 静的生成の最適化
-  generate: {
-    fallback: true,
-  },
+  // generate: {
+  //   fallback: true,
+  // },
 });
