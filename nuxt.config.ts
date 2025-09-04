@@ -5,9 +5,9 @@ export default defineNuxtConfig({
   ssr: false,
   // 静的サイト生成の設定
   nitro: {
-    prerender: {
-      routes: ["/", "/about"],
-    },
+    // prerender: {
+    //   routes: ["/", "/about"],
+    // },
     // 静的生成時のアセットパス設定
     output: {
       publicDir: "docs",
