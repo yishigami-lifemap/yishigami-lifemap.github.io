@@ -6,7 +6,7 @@
     <div v-else-if="error">エラー: {{ error.message }}</div>
     <div v-else>
       <div v-for="post in data" :key="post.id">
-        <h2>{{ post.id }} {{ post.title.rendered }}</h2>
+        <h2 v-html="post.title.rendered"></h2>
 
         <!-- ACF データの表示 -->
         <div v-if="post.acf">
@@ -24,9 +24,11 @@
             >サイトを見る</a
           >
         </div>
-
         <p>{{ new Date(post.date).toLocaleDateString("ja-JP") }}</p>
-        <a :href="post.link" target="_blank">詳細を見る</a>
+
+        <!-- 詳細ページへのリンクを追加 -->
+        <a :href="`/works/${post.id}`">詳細を見る</a>
+        <!-- <a :href="post.link" target="_blank">WordPressで見る</a> -->
       </div>
     </div>
   </div>
