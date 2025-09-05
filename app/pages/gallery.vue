@@ -1,40 +1,59 @@
 <script setup lang="ts">
-// データの型を指定
-interface ApiItem {
+// WordPress REST APIのレスポンス型を定義
+interface GalleryPost {
   id: number;
   date: string;
   link: string;
   title: { rendered: string };
   acf: { illust__img: string };
 }
-const apiData = ref<ApiItem[]>([]);
-onMounted(async () => {
+
+// コンポーネントの状態管理
+const apiData = ref<GalleryPost[]>([]);
+const isLoading = ref(false);
+const error = ref<string | null>(null);
+
+// WordPress REST APIからデータを取得する関数
+const fetchGalleryData = async (): Promise<void> => {
+  isLoading.value = true;
+  error.value = null;
+
   try {
-    // REST APIからデータを取得
     const response = await fetch(
-      "https://romanstein.jp/wp-json/wp/v2/illust?_embed&per_page=100&page=1"
+      "https://romanstein.jp/wp-json/wp/v2/illust?_embed&per_page=100&page=1",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
+    // HTTPステータスコードをチェック
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    // レスポンスをJSONとして直接パース
+    const data = (await response.json()) as GalleryPost[];
+    // データの検証
+    if (!Array.isArray(data)) {
+      throw new Error("API response is not an array");
+    }
 
-    // レスポンスのバイナリデータを取得
-    const buffer = await response.arrayBuffer();
-
-    // TextDecoderを使用してUTF-8でデコード
-    const decoder = new TextDecoder("UTF-8");
-    const dataString = decoder.decode(buffer);
-
-    // 取得したデータをJSONとしてパース
-    const data = JSON.parse(dataString) as ApiItem[];
-
-    // 取得したデータをリアクティブな変数にセット
     apiData.value = data;
-  } catch (error) {
-    console.error("APIデータの取得に失敗しました", error);
+  } catch (err) {
+    const errorMessage =
+      err instanceof Error ? err.message : "Unknown error occurred";
+    error.value = `データの取得に失敗しました: ${errorMessage}`;
+    console.error("APIデータの取得エラー:", err);
+  } finally {
+    isLoading.value = false;
   }
-});
+};
 
+// モーダル関連の状態
 const isModalActive = ref(false);
 const selectedImage = ref("");
-
+// モーダル操作関数
 const openModal = (imageSrc: string): void => {
   selectedImage.value = imageSrc;
   isModalActive.value = true;
@@ -42,36 +61,177 @@ const openModal = (imageSrc: string): void => {
 const closeModal = (): void => {
   isModalActive.value = false;
 };
+
+// コンポーネントマウント時にデータを取得
+onMounted(() => {
+  fetchGalleryData();
+});
 </script>
 
 <template>
   <div>
     <h1>gallery</h1>
-    <div class="works">
+
+    <!-- ローディング状態 -->
+    <div v-if="isLoading" class="loading">
+      <p>
+        <svg width="60" height="60" viewBox="0 0 38 38">
+          <g transform="translate(19 19)">
+            <g transform="rotate(0)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.125">
+                <animate
+                  attributeName="opacity"
+                  from="0.125"
+                  to="0.125"
+                  dur="1.2s"
+                  begin="0s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.125"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(45)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.25">
+                <animate
+                  attributeName="opacity"
+                  from="0.25"
+                  to="0.25"
+                  dur="1.2s"
+                  begin="0.15s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.25"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(90)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.375">
+                <animate
+                  attributeName="opacity"
+                  from="0.375"
+                  to="0.375"
+                  dur="1.2s"
+                  begin="0.3s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.375"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(135)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.5">
+                <animate
+                  attributeName="opacity"
+                  from="0.5"
+                  to="0.5"
+                  dur="1.2s"
+                  begin="0.44999999999999996s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.5"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(180)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.625">
+                <animate
+                  attributeName="opacity"
+                  from="0.625"
+                  to="0.625"
+                  dur="1.2s"
+                  begin="0.6s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.625"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(225)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.75">
+                <animate
+                  attributeName="opacity"
+                  from="0.75"
+                  to="0.75"
+                  dur="1.2s"
+                  begin="0.75s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.75"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(270)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.875">
+                <animate
+                  attributeName="opacity"
+                  from="0.875"
+                  to="0.875"
+                  dur="1.2s"
+                  begin="0.8999999999999999s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;0.875"
+                ></animate>
+              </circle>
+            </g>
+            <g transform="rotate(315)">
+              <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="1">
+                <animate
+                  attributeName="opacity"
+                  from="1"
+                  to="1"
+                  dur="1.2s"
+                  begin="1.05s"
+                  repeatCount="indefinite"
+                  keyTimes="0;1"
+                  values="1;1"
+                ></animate>
+              </circle>
+            </g>
+          </g>
+        </svg>
+      </p>
+    </div>
+
+    <!-- エラー状態 -->
+    <div v-else-if="error" class="error">
+      <p>{{ error }}</p>
+      <button @click="fetchGalleryData" class="retry-button">再試行</button>
+    </div>
+
+    <!-- ギャラリー表示 -->
+    <div v-else class="works">
       <ul class="works__list">
         <li class="works__item" v-for="item in apiData" :key="item.id">
           <div class="works__thumbnail">
             <img
               :src="item.acf.illust__img"
               :alt="item.title.rendered"
-              v-on:click="openModal(item.acf.illust__img)"
+              @click="openModal(item.acf.illust__img)"
+              loading="lazy"
             />
           </div>
         </li>
       </ul>
     </div>
+
+    <!-- モーダル -->
     <transition>
       <div
         id="worksModal"
         class="modal"
         v-if="isModalActive"
-        v-on:click="closeModal()"
+        @click="closeModal()"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
       >
         <div class="modal__inner">
           <div class="modal__container">
             <div class="modal__main">
               <div class="modal__img">
-                <img :src="selectedImage" alt="" />
+                <img :src="selectedImage" :alt="selectedImage" />
               </div>
             </div>
           </div>
@@ -82,6 +242,31 @@ const closeModal = (): void => {
 </template>
 
 <style scoped>
+/* 既存のスタイルに加えて、ローディングとエラー状態のスタイルを追加 */
+.loading,
+.error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+.retry-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.retry-button:hover {
+  background-color: #2980b9;
+}
+
 .works {
   .works__list {
     display: grid;
