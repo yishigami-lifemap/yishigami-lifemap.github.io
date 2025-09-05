@@ -10,24 +10,15 @@
 
         <!-- ACF データの表示 -->
         <div v-if="post.acf">
-          <img
-            v-if="post.acf.web__thumb"
-            :src="post.acf.web__thumb"
-            :alt="post.title.rendered"
-            width="400"
-          />
-          <p>制作年: {{ post.acf.web__date }}</p>
-          <a
-            v-if="post.acf.web__link"
-            :href="post.acf.web__link"
-            target="_blank"
-            >サイトを見る</a
-          >
+          <a :href="`/works/${post.id}`">
+            <img
+              v-if="post.acf.web__thumb"
+              :src="post.acf.web__thumb"
+              :alt="post.title.rendered"
+              width="400"
+            />
+          </a>
         </div>
-        <p>{{ new Date(post.date).toLocaleDateString("ja-JP") }}</p>
-
-        <!-- 詳細ページへのリンクを追加 -->
-        <a :href="`/works/${post.id}`">詳細を見る</a>
         <!-- <a :href="post.link" target="_blank">WordPressで見る</a> -->
       </div>
     </div>

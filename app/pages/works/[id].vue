@@ -14,7 +14,6 @@
           :src="data.acf.web__image"
           :alt="data.title.rendered"
         />
-        <p v-if="data.acf.web__date">制作年: {{ data.acf.web__date }}</p>
         <a v-if="data.acf.web__link" :href="data.acf.web__link" target="_blank">
           サイトを見る
         </a>
