@@ -26,4 +26,5 @@ export default defineNuxtConfig({
   // generate: {
   //   fallback: true,
   // },
+  css: ["~/assets/css/reset.css"],
 });
