@@ -30,6 +30,7 @@ const links: LinkItem[] = [
 </script>
 
 <template>
+  <!-- イエス -->
   <section class="p-links">
     <div class="wrapper">
       <div class="container">
