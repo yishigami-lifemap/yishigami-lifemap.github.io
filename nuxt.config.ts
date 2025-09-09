@@ -17,7 +17,17 @@ export default defineNuxtConfig({
   app: {
     baseURL: "/", // ルートドメインの場合は "/" に変更
     buildAssetsDir: "assets",
+    head: {
+      title: "Romanstein's Portfolio",
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap",
+        },
+      ],
+    },
   },
+  css: ["~/assets/css/reset.css", "~/assets/css/base.css"],
   // GitHub Pages用の追加設定
   experimental: {
     payloadExtraction: false,
@@ -26,5 +36,4 @@ export default defineNuxtConfig({
   // generate: {
   //   fallback: true,
   // },
-  css: ["~/assets/css/reset.css", "~/assets/css/base.css"],
 });
