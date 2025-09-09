@@ -1,5 +1,10 @@
 <template>
   <div>
+    <CommonPageTitle>
+      <template v-slot:sub>制作実績</template>
+      <template v-slot:main>Works</template>
+    </CommonPageTitle>
+
     <div v-if="pending">読み込み中...</div>
     <div v-else-if="error">エラー: {{ error.message }}</div>
     <div v-else-if="data">

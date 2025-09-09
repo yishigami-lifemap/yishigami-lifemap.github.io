@@ -43,7 +43,7 @@
     transform: translateX(-50%);
     width: 140px;
     height: 1px;
-    background-color: var(--color-white-light);
+    background-color: var(--color-white-dark);
   }
   .body {
     margin-top: var(--size-16);

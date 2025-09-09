@@ -1,5 +1,8 @@
 <template>
   <div>
-    <h1>profile</h1>
+    <CommonPageTitle>
+      <template v-slot:sub>プロフィール</template>
+      <template v-slot:main>Profile</template>
+    </CommonPageTitle>
   </div>
 </template>

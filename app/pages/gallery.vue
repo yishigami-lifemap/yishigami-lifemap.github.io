@@ -70,7 +70,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <h1>gallery</h1>
+    <CommonPageTitle>
+      <template v-slot:sub>ギャラリー</template>
+      <template v-slot:main>Gallery</template>
+    </CommonPageTitle>
 
     <!-- ローディング状態 -->
     <div v-if="isLoading" class="loading">
@@ -242,14 +245,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 既存のスタイルに加えて、ローディングとエラー状態のスタイルを追加 */
 .loading,
 .error {
   text-align: center;
   padding: 2rem;
-}
-
-.error {
 }
 
 .retry-button {
@@ -294,17 +293,21 @@ onMounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 9;
   .modal__inner {
+    position: relative;
     display: flex;
     align-items: center;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(2px);
   }
   .modal__container {
-    max-width: 560px;
+    max-width: 480px;
     margin: 0 auto;
   }
   .modal__img {
+    position: relative;
     width: 100%;
   }
 }
