@@ -23,5 +23,8 @@
     font-weight: var(--font-weight-bold);
     color: var(--color-white-light);
   }
+  .main::first-letter {
+    text-transform: uppercase;
+  }
 }
 </style>

@@ -7,6 +7,7 @@
     </CommonPageTitle>
 
     <!-- アカウント(GitHub Instagram) -->
+    <HomeAccount />
 
     <!-- 下層ページへのリンク -->
     <HomeLinks />
