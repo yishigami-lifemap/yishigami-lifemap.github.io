@@ -19,21 +19,37 @@
   --color-border: hsla(0, 0%, 52%, 0.32);
 
   /* size */
+  --size-4: 4px;
   --size-8: 8px;
+  --size-12: 12px;
   --size-16: 16px;
+  --size-20: 20px;
   --size-24: 24px;
+  --size-28: 28px;
   --size-32: 32px;
+  --size-36: 36px;
   --size-40: 40px;
+  --size-44: 44px;
   --size-48: 48px;
+  --size-52: 52px;
   --size-56: 56px;
+  --size-60: 60px;
   --size-64: 64px;
+  --size-68: 68px;
   --size-72: 72px;
+  --size-76: 76px;
   --size-80: 80px;
+  --size-84: 84px;
   --size-88: 88px;
+  --size-92: 92px;
   --size-96: 96px;
+  --size-100: 100px;
   --size-104: 104px;
+  --size-108: 108px;
   --size-112: 112px;
+  --size-116: 116px;
   --size-120: 120px;
+  --size-124: 124px;
 
   /* border-radius */
   --radius-sm: 4px;
@@ -42,21 +58,28 @@
   --radius-xl: 16px;
   --radius-2xl: 24px;
   --radius-full: 100vmax;
+
+  /* font */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
 }
 
 html {
   font-family: "Nunito Sans", "Noto Sans JP", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 300;
   font-style: normal;
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100, "YTLC" 500;
   font-size: 62.5%;
-  color: var(--color-text-primary);
-  letter-spacing: 0.4em;
-  line-height: 1.2;
+  font-feature-settings: "palt";
 }
 body {
   background-color: var(--color-black-dark);
+  color: var(--color-text-primary);
   font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
 }

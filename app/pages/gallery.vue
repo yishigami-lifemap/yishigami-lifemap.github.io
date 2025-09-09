@@ -250,7 +250,6 @@ onMounted(() => {
 }
 
 .error {
-  color: #e74c3c;
 }
 
 .retry-button {

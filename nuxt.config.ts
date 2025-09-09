@@ -26,6 +26,7 @@ export default defineNuxtConfig({
         },
       ],
     },
+    pageTransition: { name: "page", mode: "out-in" },
   },
   css: ["~/assets/css/reset.css", "~/assets/css/base.css"],
   // GitHub Pages用の追加設定
