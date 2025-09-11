@@ -29,7 +29,11 @@ summary {
 ol {
   counter-reset: revert;
 }
-img {
+img,
+svg {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
   max-inline-size: 100%;
   max-block-size: 100%;
 }

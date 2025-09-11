@@ -1,0 +1,1 @@
+import{_ as r}from"./tYCouP3E.js";import{_ as s,c as _,o as a,b as l,w as e,d as t}from"#entry";const m={};function c(i,o){const n=r;return a(),_("div",null,[l(n,null,{sub:e(()=>[...o[0]||(o[0]=[t("プロフィール",-1)])]),main:e(()=>[...o[1]||(o[1]=[t("Profile",-1)])]),_:1})])}const d=s(m,[["render",c]]);export{d as default};

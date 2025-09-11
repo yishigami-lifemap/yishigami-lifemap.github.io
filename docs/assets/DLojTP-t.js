@@ -1,0 +1,1 @@
+import{_ as a,c as _,o as c,b as o,a as e,O as r,N as d,P as p}from"#entry";const l={},i={class:"l-main"},f={class:"wrapper"},m={class:"container"};function u(n,h){const t=r,s=p;return c(),_("div",null,[o(t),e("main",i,[e("div",f,[e("div",m,[d(n.$slots,"default",{},void 0)])])]),o(s)])}const x=a(l,[["render",u],["__scopeId","data-v-3fa3b4a9"]]);export{x as default};

@@ -1,5 +1,7 @@
+<script setup lang="ts"></script>
+
 <template>
-  <header>
+  <header class="l-header">
     <nav>
       <ul>
         <li><NuxtLink to="/">home</NuxtLink></li>
