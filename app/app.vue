@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .page-enter-active,
 .page-leave-active {
   transition: all 0.24s;

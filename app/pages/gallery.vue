@@ -1,9 +1,14 @@
+<script setup lang="ts">
+definePageMeta({
+  pageTitle: {
+    sub: "ギャラリー",
+    main: "Gallery",
+  },
+});
+</script>
+
 <template>
   <div class="p-gallery">
-    <CommonPageTitle>
-      <template v-slot:sub>ギャラリー</template>
-      <template v-slot:main>Gallery</template>
-    </CommonPageTitle>
     <div class="p-gallery__body">
       <GalleryViewer />
     </div>

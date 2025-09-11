@@ -1,12 +1,17 @@
+<script setup lang="ts">
+const props = defineProps<{
+  sub?: string;
+  main?: string;
+}>();
+const sub = computed(() => props.sub ?? "");
+const main = computed(() => props.main ?? "");
+</script>
+
 <template>
-  <h2 class="c-pageTitle">
-    <span class="sub">
-      <slot name="sub" />
-    </span>
-    <span class="main">
-      <slot name="main" />
-    </span>
-  </h2>
+  <h1 class="c-pageTitle">
+    <span class="sub">{{ sub }}</span>
+    <span class="main">{{ main }}</span>
+  </h1>
 </template>
 
 <style scoped>

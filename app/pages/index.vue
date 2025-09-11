@@ -1,17 +1,25 @@
+<script lang="ts" setup></script>
+
 <template>
-  <div>
-    <!-- タイトル -->
-    <CommonPageTitle>
-      <template v-slot:sub>Web Developer</template>
-      <template v-slot:main>Romanstein</template>
-    </CommonPageTitle>
-
+  <div class="p-home">
     <!-- アカウント(GitHub Instagram) -->
-    <HomeAccount />
-
+    <div class="p-home__account">
+      <HomeAccount />
+    </div>
     <!-- 下層ページへのリンク -->
-    <HomeLinks />
+    <div class="p-home__links">
+      <HomeLinks />
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.p-home {
+  .p-home__account {
+    margin-top: 0em;
+  }
+  .p-home__links {
+    margin-top: var(--size-32);
+  }
+}
+</style>

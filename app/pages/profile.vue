@@ -1,9 +1,11 @@
+<script setup lang="ts">
+definePageMeta({
+  pageTitle: {
+    sub: "プロフィール",
+    main: "profile",
+  },
+});
+</script>
 <template>
-  <div>
-    <!-- タイトル -->
-    <CommonPageTitle>
-      <template v-slot:sub>プロフィール</template>
-      <template v-slot:main>Profile</template>
-    </CommonPageTitle>
-  </div>
+  <div></div>
 </template>

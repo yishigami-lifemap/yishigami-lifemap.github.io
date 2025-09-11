@@ -1,1 +1,0 @@
-import{_ as r}from"./UPhHb2TY.js";import{_ as s,c as _,b as a,w as e,o as l,d as t}from"#entry";const m={};function c(i,o){const n=r;return l(),_("div",null,[a(n,null,{sub:e(()=>[...o[0]||(o[0]=[t("プロフィール",-1)])]),main:e(()=>[...o[1]||(o[1]=[t("Profile",-1)])]),_:1})])}const d=s(m,[["render",c]]);export{d as default};

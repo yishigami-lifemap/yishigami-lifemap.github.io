@@ -1,6 +1,18 @@
+<script setup lang="ts">
+const route = useRoute();
+const pageTitle = computed(() => {
+  const meta = route.meta as { pageTitle?: { sub?: string; main?: string } };
+  return {
+    sub: meta.pageTitle?.sub ?? "Web Developer",
+    main: meta.pageTitle?.main ?? "Romanstein",
+  };
+});
+</script>
+
 <template>
   <div>
     <AppHeader />
+    <CommonPageTitle :sub="pageTitle.sub" :main="pageTitle.main" />
     <main class="l-main">
       <div class="wrapper">
         <div class="container">
@@ -16,8 +28,8 @@
 .l-main {
   .wrapper {
     position: relative;
-    min-height: 100dvh;
-    padding-block: var(--size-48) var(--size-120);
+    min-height: 50dvh;
+    padding-block: var(--size-40) var(--size-120);
   }
   /* .wrapper::before {
     content: "Romanstein";
