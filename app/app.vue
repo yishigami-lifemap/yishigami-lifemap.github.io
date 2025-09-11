@@ -1,13 +1,9 @@
 <template>
-  <AppHeader />
-  <main class="l-main">
-    <div class="wrapper">
-      <div class="container">
-        <NuxtPage />
-      </div>
-    </div>
-  </main>
-  <AppFooter />
+  <div>
+    <NuxtLayout>
+      <NuxPage />
+    </NuxtLayout>
+  </div>
 </template>
 
 <style scoped>
@@ -20,15 +16,5 @@
   opacity: 0;
   filter: blur(2px);
   transform: translateX(4px);
-}
-
-.l-main {
-  .wrapper {
-    padding-block: var(--size-48) var(--size-120);
-  }
-  .container {
-    max-width: var(--container-md);
-    margin-inline: auto;
-  }
 }
 </style>

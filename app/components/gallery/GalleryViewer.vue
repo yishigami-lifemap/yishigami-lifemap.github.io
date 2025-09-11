@@ -20,7 +20,7 @@ const fetchGalleryData = async (): Promise<void> => {
 
   try {
     const response = await fetch(
-      "https://romanstein.jp/wp-json/wp/v2/illust?_embed&per_page=100&page=1",
+      "https://romanstein.jp/wp-json/wp/v2/illust?embed&per_page=100",
       {
         method: "GET",
         headers: {
@@ -41,9 +41,7 @@ const fetchGalleryData = async (): Promise<void> => {
 
     apiData.value = data;
   } catch (err) {
-    const errorMessage =
-      err instanceof Error ? err.message : "Unknown error occurred";
-    error.value = `データの取得に失敗しました: ${errorMessage}`;
+    error.value = "データの取得に失敗しました";
     console.error("APIデータの取得エラー:", err);
   } finally {
     isLoading.value = false;
@@ -71,124 +69,7 @@ onMounted(() => {
 <template>
   <!-- ローディング状態 -->
   <div v-if="isLoading" class="loading">
-    <p>
-      <svg width="60" height="60" viewBox="0 0 38 38">
-        <g transform="translate(19 19)">
-          <g transform="rotate(0)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.125">
-              <animate
-                attributeName="opacity"
-                from="0.125"
-                to="0.125"
-                dur="1.2s"
-                begin="0s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.125"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(45)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.25">
-              <animate
-                attributeName="opacity"
-                from="0.25"
-                to="0.25"
-                dur="1.2s"
-                begin="0.15s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.25"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(90)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.375">
-              <animate
-                attributeName="opacity"
-                from="0.375"
-                to="0.375"
-                dur="1.2s"
-                begin="0.3s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.375"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(135)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.5">
-              <animate
-                attributeName="opacity"
-                from="0.5"
-                to="0.5"
-                dur="1.2s"
-                begin="0.44999999999999996s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.5"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(180)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.625">
-              <animate
-                attributeName="opacity"
-                from="0.625"
-                to="0.625"
-                dur="1.2s"
-                begin="0.6s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.625"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(225)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.75">
-              <animate
-                attributeName="opacity"
-                from="0.75"
-                to="0.75"
-                dur="1.2s"
-                begin="0.75s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.75"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(270)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="0.875">
-              <animate
-                attributeName="opacity"
-                from="0.875"
-                to="0.875"
-                dur="1.2s"
-                begin="0.8999999999999999s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;0.875"
-              ></animate>
-            </circle>
-          </g>
-          <g transform="rotate(315)">
-            <circle cx="0" cy="12" r="3" fill="#60A5FA" opacity="1">
-              <animate
-                attributeName="opacity"
-                from="1"
-                to="1"
-                dur="1.2s"
-                begin="1.05s"
-                repeatCount="indefinite"
-                keyTimes="0;1"
-                values="1;1"
-              ></animate>
-            </circle>
-          </g>
-        </g>
-      </svg>
-    </p>
+    <CommonLoading />
   </div>
 
   <!-- エラー状態 -->
@@ -245,7 +126,7 @@ onMounted(() => {
 }
 
 .retry-button {
-  background-color: #3498db;
+  background-color: var(--color-black-light);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -263,20 +144,33 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    gap: var(--size-12);
   }
   .works__thumbnail {
+    position: relative;
     width: 100%;
     aspect-ratio: 1/1;
     cursor: pointer;
     img {
+      position: relative;
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      border-radius: var(--radius-md);
     }
+  }
+  .works__thumbnail::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
   }
 }
 
@@ -293,7 +187,6 @@ onMounted(() => {
     align-items: center;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.48);
-    backdrop-filter: blur(2px);
   }
   .modal__container {
     max-width: 480px;
