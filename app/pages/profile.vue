@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- タイトル -->
     <CommonPageTitle>
       <template v-slot:sub>プロフィール</template>
       <template v-slot:main>Profile</template>
