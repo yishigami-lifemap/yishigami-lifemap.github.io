@@ -1,0 +1,1 @@
+import{_ as o,c as a,o as t,a as e,k as n}from"#entry";const c={},_={class:"c-pageTitle"},r={class:"sub"},d={class:"main"};function i(s,l){return t(),a("h2",_,[e("span",r,[n(s.$slots,"sub",{},void 0)]),e("span",d,[n(s.$slots,"main",{},void 0)])])}const p=Object.assign(o(c,[["render",i],["__scopeId","data-v-832bc404"]]),{__name:"CommonPageTitle"});export{p as _};

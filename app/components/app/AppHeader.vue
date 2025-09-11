@@ -12,3 +12,9 @@
     </nav>
   </header>
 </template>
+
+<style scoped>
+.l-header {
+  position: relative;
+}
+</style>

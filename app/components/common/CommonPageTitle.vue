@@ -11,17 +11,18 @@
 
 <style scoped>
 .c-pageTitle {
-  text-align: center;
   .sub {
     display: block;
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.15em;
+    text-align: center;
   }
   .main {
     display: block;
     font-size: 7.2rem;
     font-weight: var(--font-weight-bold);
     color: var(--color-white-light);
+    text-align: center;
   }
   .main::first-letter {
     text-transform: uppercase;

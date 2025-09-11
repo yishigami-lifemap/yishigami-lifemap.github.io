@@ -67,86 +67,92 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- ローディング状態 -->
-  <div v-if="isLoading" class="loading">
-    <CommonLoading />
-  </div>
-
-  <!-- エラー状態 -->
-  <div v-else-if="error" class="error">
-    <p>{{ error }}</p>
-    <button @click="fetchGalleryData" class="retry-button">再試行</button>
-  </div>
-
   <!-- ギャラリー表示 -->
-  <div v-else class="works">
-    <ul class="works__list">
-      <li class="works__item" v-for="item in apiData" :key="item.id">
-        <div class="works__thumbnail">
-          <img
-            :src="item.acf.illust__img"
-            :alt="item.title.rendered"
-            @click="openModal(item.acf.illust__img)"
-            loading="lazy"
-          />
-        </div>
-      </li>
-    </ul>
-  </div>
+  <div class="illust">
+    <!-- ローディング状態 -->
+    <div v-if="isLoading" class="illust__loading">
+      <CommonLoading />
+    </div>
 
-  <!-- モーダル -->
-  <transition>
-    <div
-      id="worksModal"
-      class="modal"
-      v-if="isModalActive"
-      @click="closeModal()"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-      <div class="modal__inner">
-        <div class="modal__container">
-          <div class="modal__main">
-            <div class="modal__img">
-              <img :src="selectedImage" :alt="selectedImage" />
+    <!-- エラー状態 -->
+    <div v-else-if="error" class="illust__error">
+      <p>{{ error }}</p>
+      <button @click="fetchGalleryData" class="retry-button">再試行</button>
+    </div>
+
+    <!-- ギャラリー -->
+    <div v-else>
+      <ul class="illust__list">
+        <li class="illust__item" v-for="item in apiData" :key="item.id">
+          <div class="illust__thumbnail">
+            <img
+              :src="item.acf.illust__img"
+              :alt="item.title.rendered"
+              @click="openModal(item.acf.illust__img)"
+              loading="lazy"
+            />
+          </div>
+        </li>
+      </ul>
+      <div class="illust__bottom">
+        <div class="illust__button">
+          <CommonLinkButton href="https://www.instagram.com/romanstein_jp/">
+            Instagramで見る
+          </CommonLinkButton>
+        </div>
+      </div>
+      <!-- モーダル -->
+      <transition>
+        <div
+          id="worksModal"
+          class="modal"
+          v-if="isModalActive"
+          @click="closeModal()"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
+          <div class="modal__inner">
+            <div class="modal__container">
+              <div class="modal__main">
+                <div class="modal__img">
+                  <img :src="selectedImage" :alt="selectedImage" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </transition>
     </div>
-  </transition>
+  </div>
 </template>
 
 <style scoped>
-.loading,
-.error {
-  text-align: center;
-  padding: 2rem;
-}
-
-.retry-button {
-  background-color: var(--color-black-light);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-.retry-button:hover {
-  background-color: #2980b9;
-}
-
-.works {
-  .works__list {
+.illust {
+  .illust__loading,
+  .illust__error {
+    text-align: center;
+    padding: 2rem;
+  }
+  .retry-button {
+    background-color: var(--color-black-dark);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .retry-button:hover {
+    background-color: var(--color-black-light);
+  }
+  .illust__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: var(--size-12);
   }
-  .works__thumbnail {
+  .illust__thumbnail {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
@@ -161,7 +167,7 @@ onMounted(() => {
       border-radius: var(--radius-md);
     }
   }
-  .works__thumbnail::before {
+  .illust__thumbnail::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -171,6 +177,13 @@ onMounted(() => {
     height: calc(100% + 8px);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+  }
+  .illust__bottom {
+    margin-top: var(--size-40);
+  }
+  .illust__button {
+    width: 240px;
+    margin-inline: auto;
   }
 }
 
@@ -197,7 +210,6 @@ onMounted(() => {
     width: 100%;
   }
 }
-
 .v-enter-active,
 .v-leave-active {
   transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);

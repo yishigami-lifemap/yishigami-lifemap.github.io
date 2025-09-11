@@ -1,11 +1,9 @@
 <template>
   <div class="p-gallery">
-    <div class="p-gallery__head">
-      <CommonPageTitle>
-        <template v-slot:sub>ギャラリー</template>
-        <template v-slot:main>Gallery</template>
-      </CommonPageTitle>
-    </div>
+    <CommonPageTitle>
+      <template v-slot:sub>ギャラリー</template>
+      <template v-slot:main>Gallery</template>
+    </CommonPageTitle>
     <div class="p-gallery__body">
       <GalleryViewer />
     </div>
