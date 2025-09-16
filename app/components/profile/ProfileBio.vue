@@ -7,9 +7,11 @@
             <figure class="p-bio__figure">
               <img
                 src="assets/images/profile/p-bio__figure@2x.png"
-                alt=""
+                alt="Romanstein"
                 loading="lazy"
                 decoding="async"
+                width="150"
+                height="150"
               />
             </figure>
             <div class="p-bio__summary">
