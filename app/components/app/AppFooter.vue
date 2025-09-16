@@ -12,7 +12,7 @@
           <section class="l-footer__infoSection">
             <h3 class="l-footer__infoTitle">技術構成</h3>
             <p class="l-footer__infoText">
-              Nuxt.js, TypeScript, WordPress REST API
+              Nuxt.js(v4.1), TypeScript, WordPress REST API
             </p>
           </section>
           <section class="l-footer__infoSection">
