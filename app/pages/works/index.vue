@@ -164,161 +164,167 @@ onMounted(() => {
 
 <template>
   <div class="p-works">
-    <!-- タイムライン -->
-    <div class="p-works__timeline">
-      <div class="p-works__timeline-line"></div>
-      <div class="p-works__timeline-years">
-        <span class="p-works__timeline-year p-works__timeline-year--2025"
-          >2025</span
-        >
-        <span class="p-works__timeline-year p-works__timeline-year--2020"
-          >2020</span
-        >
-      </div>
-    </div>
-
-    <!-- 会社情報カード -->
-    <div class="p-works__companies">
-      <div v-for="company in companies" :key="company.id" class="p-company">
-        <div class="p-company__head">
-          <!-- タグ -->
-          <div class="p-company__tags">
-            <span class="p-company__tag">{{ company.type }}</span>
-            <span class="p-company__tag">{{ company.status }}</span>
+    <div class="p-works__wrapper">
+      <div class="p-works__container">
+        <div class="p-works__inner">
+          <!-- タイムライン -->
+          <div class="p-works__timeline">
+            <div class="p-works__year">2025</div>
+            <div class="p-works__line"></div>
+            <div class="p-works__year">2020</div>
           </div>
-          <!-- 会社情報 -->
-          <div class="p-company__info">
-            <h3 class="p-company__name">{{ company.name }}</h3>
-            <p class="p-company__role">{{ company.role }}</p>
-          </div>
-        </div>
-
-        <div class="p-company__body">
-          <!-- 主な業務内容 -->
-          <div class="p-company__section">
-            <h4 class="p-company__sectionTitle">主な業務内容</h4>
-            <div class="p-company__sectionBody">
-              <p>{{ company.mainTasks }}</p>
-            </div>
-          </div>
-          <!-- 主な担当プロジェクト -->
-          <div v-if="company.id === 'lifemap'">
-            <div class="p-company__section">
-              <h4 class="p-company__sectionTitle">主な担当プロジェクト</h4>
-              <div class="p-company__sectionBody">
-                <div class="p-company__projects">
-                  <div
-                    class="p-project"
-                    v-for="project in company.projects"
-                    :key="project.id"
-                  >
-                    <details class="p-project__inner">
-                      <summary class="p-project__title">
-                        <span>{{ project.title }}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="9.433"
-                          height="8.473"
-                          viewBox="0 0 9.433 8.473"
-                          class="p-project__arrow"
-                        >
-                          <path
-                            d="M4.651.62a.4.4,0,0,1,.7,0L9.665,8.293a.4.4,0,0,1-.349.6H.684a.4.4,0,0,1-.349-.6Z"
-                            transform="translate(9.717 8.889) rotate(180)"
-                            fill="#4d4d4d"
-                          />
-                        </svg>
-                      </summary>
-                      <div
-                        :id="`project-${project.id}`"
-                        class="p-project__body"
-                      >
-                        <p class="p-project__description">
-                          {{ project.description }}
-                        </p>
-                      </div>
-                    </details>
+          <!-- 会社情報カード -->
+          <div class="p-works__companies">
+            <div
+              v-for="company in companies"
+              :key="company.id"
+              class="p-company"
+            >
+              <div class="p-company__wrapper">
+                <div class="p-company__head">
+                  <!-- タグ -->
+                  <div class="p-company__tags">
+                    <span class="p-company__tag">{{ company.type }}</span>
+                    <span class="p-company__tag">{{ company.status }}</span>
+                  </div>
+                  <!-- 会社情報 -->
+                  <div class="p-company__info">
+                    <h3 class="p-company__name">{{ company.name }}</h3>
+                    <p class="p-company__role">{{ company.role }}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- 主な制作実績 -->
-          <div v-if="company.id === 'studio-nnc'">
-            <div class="p-company__section">
-              <h4 class="p-company__sectionTitle">主な制作実績</h4>
-              <div class="p-company__sectionBody">
-                <div class="p-company__projects">
-                  <!-- ローディング状態 -->
-                  <div v-if="isLoading" class="loading">
-                    <CommonLoading />
+                <div class="p-company__body">
+                  <!-- 主な業務内容 -->
+                  <div class="p-company__section">
+                    <h4 class="p-company__sectionTitle">主な業務内容</h4>
+                    <div class="p-company__sectionBody">
+                      <p>{{ company.mainTasks }}</p>
+                    </div>
                   </div>
-
-                  <!-- エラー状態 -->
-                  <div v-else-if="error" class="error">
-                    <p>{{ error }}</p>
-                    <button @click="fetchWebData" class="retry-button">
-                      再試行
-                    </button>
-                  </div>
-
-                  <!-- データ表示 -->
-                  <div v-else class="p-company__projects">
-                    <div v-for="post in apiData" :key="post.id">
-                      <div class="p-sites">
-                        <div class="p-sites__inner">
-                          <NuxtLink
-                            :to="`/works/${post.id}`"
-                            class="p-sites__link"
+                  <!-- 主な担当プロジェクト -->
+                  <div v-if="company.id === 'lifemap'">
+                    <div class="p-company__section">
+                      <h4 class="p-company__sectionTitle">
+                        主な担当プロジェクト
+                      </h4>
+                      <div class="p-company__sectionBody">
+                        <div class="p-company__projects">
+                          <div
+                            class="p-project"
+                            v-for="project in company.projects"
+                            :key="project.id"
                           >
-                            <div class="p-sites__thumbnail">
-                              <img :src="post.acf.web__thumb" alt="" />
-                            </div>
-                            <div class="p-sites__text">
-                              <p class="p-sites__year">
-                                {{ post.acf.web__date }}
-                              </p>
-                              <h3 class="p-sites__title">
-                                {{ post.title.rendered }}
-                              </h3>
-                            </div>
-                          </NuxtLink>
+                            <details class="p-project__inner">
+                              <summary class="p-project__title">
+                                <span>{{ project.title }}</span>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="9.433"
+                                  height="8.473"
+                                  viewBox="0 0 9.433 8.473"
+                                  class="p-project__arrow"
+                                >
+                                  <path
+                                    d="M4.651.62a.4.4,0,0,1,.7,0L9.665,8.293a.4.4,0,0,1-.349.6H.684a.4.4,0,0,1-.349-.6Z"
+                                    transform="translate(9.717 8.889) rotate(180)"
+                                    fill="#4d4d4d"
+                                  />
+                                </svg>
+                              </summary>
+                              <div
+                                :id="`project-${project.id}`"
+                                class="p-project__body"
+                              >
+                                <p class="p-project__description">
+                                  {{ project.description }}
+                                </p>
+                              </div>
+                            </details>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 技術記事 -->
-          <div v-if="company.articles">
-            <div class="p-company__section">
-              <h4 class="p-company__sectionTitle">開発記事</h4>
-              <div class="p-company__sectionBody">
-                <div class="p-article">
-                  <p class="p-article__description">
-                    エンジニアのための新しい情報共有コミュニティ<a
-                      href="https://zenn.dev/about"
-                      target="_blank"
-                      >「Zenn」</a
-                    >にて、開発記事を執筆・発信。<br />記事の内容は、CSSやVue等のフロントエンドの内容が中心。
-                  </p>
-                  <ul class="p-article__list">
-                    <li
-                      v-for="article in company.articles"
-                      :key="article.title"
-                      class="p-article__item"
-                    >
-                      <a
-                        :href="article.href"
-                        class="p-article__link"
-                        target="_blank"
-                      >
-                        {{ article.title }}
-                      </a>
-                    </li>
-                  </ul>
+                  <!-- 主な制作実績 -->
+                  <div v-if="company.id === 'studio-nnc'">
+                    <div class="p-company__section">
+                      <h4 class="p-company__sectionTitle">主な制作実績</h4>
+                      <div class="p-company__sectionBody">
+                        <div class="p-company__projects">
+                          <!-- ローディング状態 -->
+                          <div v-if="isLoading" class="loading">
+                            <CommonLoading />
+                          </div>
+
+                          <!-- エラー状態 -->
+                          <div v-else-if="error" class="error">
+                            <p>{{ error }}</p>
+                            <button @click="fetchWebData" class="retry-button">
+                              再試行
+                            </button>
+                          </div>
+
+                          <!-- データ表示 -->
+                          <div v-else class="p-company__projects">
+                            <div v-for="post in apiData" :key="post.id">
+                              <div class="p-sites">
+                                <div class="p-sites__inner">
+                                  <NuxtLink
+                                    :to="`/works/${post.id}`"
+                                    class="p-sites__link"
+                                  >
+                                    <div class="p-sites__thumbnail">
+                                      <img :src="post.acf.web__thumb" alt="" />
+                                    </div>
+                                    <div class="p-sites__text">
+                                      <p class="p-sites__year">
+                                        {{ post.acf.web__date }}
+                                      </p>
+                                      <h3 class="p-sites__title">
+                                        {{ post.title.rendered }}
+                                      </h3>
+                                    </div>
+                                  </NuxtLink>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- 技術記事 -->
+                  <div v-if="company.articles">
+                    <div class="p-company__section">
+                      <h4 class="p-company__sectionTitle">開発記事</h4>
+                      <div class="p-company__sectionBody">
+                        <div class="p-article">
+                          <p class="p-article__description">
+                            エンジニアのための新しい情報共有コミュニティ<a
+                              href="https://zenn.dev/about"
+                              target="_blank"
+                              >「Zenn」</a
+                            >にて、開発記事を執筆・発信。<br />記事の内容は、CSSやVue等のフロントエンドの内容が中心。
+                          </p>
+                          <ul class="p-article__list">
+                            <li
+                              v-for="article in company.articles"
+                              :key="article.title"
+                              class="p-article__item"
+                            >
+                              <a
+                                :href="article.href"
+                                class="p-article__link"
+                                target="_blank"
+                              >
+                                {{ article.title }}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -331,61 +337,63 @@ onMounted(() => {
 
 <style scoped>
 .p-works {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--size-40) var(--size-20);
+  .p-works__inner {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2em;
+  }
   /* タイムライン */
   .p-works__timeline {
     position: relative;
-    margin-bottom: var(--size-80);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-
-  .p-works__timeline-line {
-    position: absolute;
-    left: var(--size-20);
-    top: 0;
-    bottom: 0;
-    width: 2px;
+  .p-works__line {
+    width: 1px;
+    height: 100%;
+    margin-inline: auto;
     background-color: var(--color-border);
   }
-
-  .p-works__timeline-years {
+  .p-works__year {
     position: relative;
-    z-index: 1;
-  }
-
-  .p-works__timeline-year {
     display: block;
-    position: relative;
-    left: var(--size-20);
-    margin-left: -8px;
-    width: 16px;
-    height: 16px;
-    background-color: var(--color-black-base);
-    border: 2px solid var(--color-border);
-    border-radius: 50%;
-    margin-bottom: var(--size-80);
+    width: 100%;
+    padding: 0 var(--size-16);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    background-color: var(--color-black-light);
+    font-weight: var(--font-weight-bold);
+    font-style: italic;
+    text-align: center;
   }
-
-  .p-works__timeline-year--2025 {
-    margin-bottom: var(--size-120);
-  }
-
   /* 会社情報カード */
   .p-works__companies {
     display: flex;
     flex-direction: column;
     gap: var(--size-40);
+    padding-top: 2em;
   }
 }
 
 .p-company {
-  position: relative;
-  padding: var(--size-24);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background-color: var(--color-black-dark);
+  .p-company__wrapper {
+    position: relative;
+    padding: var(--size-24);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-black-dark);
+  }
+  .p-company__wrapper::before {
+    content: "";
+    position: absolute;
+    top: var(--size-40);
+    right: 100%;
+    display: block;
+    width: 5em;
+    height: 1px;
+    background-color: var(--color-border);
+  }
   .p-company__head {
     padding-bottom: var(--size-20);
     border-bottom: 1px solid var(--color-border);

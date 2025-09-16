@@ -68,23 +68,23 @@ onMounted(() => {
 
 <template>
   <!-- ギャラリー表示 -->
-  <div class="illust">
+  <div class="p-illust">
     <!-- ローディング状態 -->
-    <div v-if="isLoading" class="illust__loading">
+    <div v-if="isLoading" class="p-illust__loading">
       <CommonLoading />
     </div>
 
     <!-- エラー状態 -->
-    <div v-else-if="error" class="illust__error">
+    <div v-else-if="error" class="p-illust__error">
       <p>{{ error }}</p>
       <button @click="fetchGalleryData" class="retry-button">再試行</button>
     </div>
 
     <!-- ギャラリー -->
     <div v-else>
-      <ul class="illust__list">
-        <li class="illust__item" v-for="item in apiData" :key="item.id">
-          <div class="illust__thumbnail">
+      <ul class="p-illust__list">
+        <li class="p-illust__item" v-for="item in apiData" :key="item.id">
+          <div class="p-illust__thumbnail">
             <img
               :src="item.acf.illust__img"
               :alt="item.title.rendered"
@@ -94,12 +94,8 @@ onMounted(() => {
           </div>
         </li>
       </ul>
-      <div class="illust__bottom">
-        <div class="illust__button">
-          <CommonLinkButton href="https://www.instagram.com/romanstein_jp/">
-            Instagramで見る
-          </CommonLinkButton>
-        </div>
+      <div class="p-illust__bottom">
+        <div class="p-illust__button"></div>
       </div>
       <!-- モーダル -->
       <transition>
@@ -128,9 +124,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.illust {
-  .illust__loading,
-  .illust__error {
+.p-illust {
+  .p-illust__loading,
+  .p-illust__error {
     text-align: center;
     padding: 2rem;
   }
@@ -146,13 +142,13 @@ onMounted(() => {
   .retry-button:hover {
     background-color: var(--color-black-light);
   }
-  .illust__list {
+  .p-illust__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: var(--size-12);
   }
-  .illust__thumbnail {
+  .p-illust__thumbnail {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
@@ -167,7 +163,7 @@ onMounted(() => {
       border-radius: var(--radius-md);
     }
   }
-  .illust__thumbnail::before {
+  .p-illust__thumbnail::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -178,10 +174,10 @@ onMounted(() => {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
   }
-  .illust__bottom {
+  .p-illust__bottom {
     margin-top: var(--size-40);
   }
-  .illust__button {
+  .p-illust__button {
     width: 240px;
     margin-inline: auto;
   }
