@@ -3,7 +3,6 @@ defineProps<{ href: string }>();
 </script>
 
 <template>
-  <!-- 外部リンクの場合 -->
   <a :href="href" target="_blank" class="c-linkButton">
     <span class="c-linkButton__label">
       <slot />
@@ -36,11 +35,12 @@ defineProps<{ href: string }>();
   position: relative;
   display: block;
   gap: var(--size-8);
-  padding: var(--size-16) var(--size-40);
+  padding: var(--size-12) var(--size-36);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   background-color: var(--color-black-light);
   color: var(--color-white-light);
+  font-size: 1.3rem;
   text-decoration: none;
   text-align: center;
   transition: all 0.2s ease;

@@ -28,7 +28,7 @@ const companies = ref([
     status: "現職",
     year: "2025",
     mainTasks:
-      "Ruby on Railsで構築された進学情報サイトのUI改修を担当。また、WordPressで構築された特集サイトやLPの改修も担当する。他部署の関係者との要件定義、バックエンドエンジニアへの引き継ぎなど、社内の人間と連携してコーディングを進める。また、デザイナーの稼働状況に応じてWF・デザインを担当することも。",
+      "Ruby on Railsで構築された進学情報サイトのUI改修を担当する。また、WordPressで構築された特集サイトやLPの小規模リニューアルも手がける。他部署の関係者との要件定義、バックエンドエンジニアへの引き継ぎなど、社内の人間と連携してコーディングを進める。デザイナーの稼働状況によっては、簡単なWF・デザインを制作することも。<br>また、Slackの自動化ツール（ワークフロービルダー）を用いて、日報投稿システムや営業の請求書・発注書の承認フローの構築も行うなど、社内SE的な役割も担う。",
     projects: [
       {
         id: "css-refactoring",
@@ -89,30 +89,7 @@ const companies = ref([
     status: "前職",
     year: "2020",
     mainTasks:
-      "コーディング、オリジナルWordPressテーマの作成、デザイン業務を担当。クライアントの要望に応じたカスタマイズと、保守性の高いコードの実装に注力した。",
-    projects: [
-      {
-        id: "studio-nnc-site",
-        title: "合同会社 STUDIO NNC",
-        year: "2021",
-        isExpanded: false,
-        description: "",
-      },
-      {
-        id: "nakazato-accounting",
-        title: "中里会計事務所",
-        year: "2021",
-        isExpanded: false,
-        description: "",
-      },
-      {
-        id: "kotonoha",
-        title: "コトノハ",
-        year: "2021",
-        isExpanded: false,
-        description: "",
-      },
-    ],
+      "マークアップエンジニアとして、主にコーディングを担当する。デザイナーの稼働状況や案件の特性に応じて、WF・デザインの制作も行う。",
   },
 ]);
 
@@ -517,12 +494,11 @@ onMounted(() => {
   }
   .p-article__link {
     color: var(--color-white-light);
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 0.2s ease;
   }
   .p-article__link:hover {
     color: var(--color-text-primary);
-    text-decoration: underline;
   }
 }
 .p-sites {
