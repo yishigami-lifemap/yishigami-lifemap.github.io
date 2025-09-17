@@ -87,3 +87,14 @@ body {
   letter-spacing: 0.05em;
   line-height: 1.6;
 }
+details::details-content {
+  @media (prefers-reduced-motion: no-preference) {
+    overflow: clip;
+    transition-duration: 300ms;
+    transition-property: content-visibility, block-size;
+    transition-behavior: allow-discrete;
+  }
+}
+details:not(:open)::details-content {
+  block-size: 0;
+}

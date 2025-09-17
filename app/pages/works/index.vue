@@ -11,38 +11,49 @@ const companies = ref([
   {
     id: "lifemap",
     name: "株式会社 ライフマップ",
-    role: "WF・デザイン・コーディング",
+    role: [
+      "HTML",
+      "CSS",
+      "Sass",
+      "JavaScript",
+      "jQuery",
+      "Vue.js",
+      "Nuxt.js",
+      "Ruby on Rails",
+      "WordPress",
+      "Adobe XD",
+      "Figma",
+    ],
     type: "事業会社",
     status: "現職",
     year: "2025",
     mainTasks:
-      "大学情報サイトの機能・UI改善、バックエンドエンジニアとの連携、デザイン業務を担当。ユーザビリティ向上とパフォーマンス最適化に注力し、アクセシビリティの向上にも取り組んでいる。",
+      "Ruby on Railsで構築された進学情報サイトのUI改修を担当。また、WordPressで構築された特集サイトやLPの改修も担当する。他部署の関係者との要件定義、バックエンドエンジニアへの引き継ぎなど、社内の人間と連携してコーディングを進める。また、デザイナーの稼働状況に応じてWF・デザインを担当することも。",
     projects: [
       {
         id: "css-refactoring",
         title:
           "CSSのリファクタリング-744KB (約20000行) から 153KB (約7000行)に",
-        isExpanded: true,
         description:
-          "main.cssファイルで発見された問題点（コーディング規約の不在、重複セレクタ、共通・固有スタイルの分離不足）を解決するため、FLOCSSの導入、Sassへの移行、古い記述の削除を行った。結果として、プレフィックスによる要素の役割明確化、セレクタの簡素化、コード量の大幅削減（約60%減）を実現した。",
+          "サイト共通で読み込んでいるCSSファイルで発見された問題点（コーディング規約の不在、重複セレクタ、共通・固有スタイルの分離不足）を発見。解決策として、FLOCSSの導入、Sassへの移行、古い記述の削除を行った。結果として、プレフィックスによる要素の役割明確化、セレクタの簡素化、コード量の大幅削減（約60%減）を実現した。",
+      },
+      {
+        id: "cvr-optimization",
+        title: "CVRに寄与する重要ページの大規模リニューアル(EFO)",
+        description:
+          "請求や申し込みなどのエントリーフォームのリニューアルを担当。バリデーション等の機能も改めて強化することで、申し込みフォームの離脱率は57%→54%、請求フォームは52%→49%まで改善することに成功。",
+      },
+      {
+        id: "wordpress-renovation",
+        title: "WordPressを使った特集サイトのデザインリニューアル",
+        description:
+          "WordPressで構築された特集サイトのデザイン改修を担当。古いテーマに改修が重ねられていたが、コードの整理を行いつつ新規ページの作成やCSSの改修を行い、新デザインへの移行を実現した。",
       },
       {
         id: "nuxt-rails",
         title: "Nuxt.js x Ruby on Railsによるフロント再構築",
-        isExpanded: false,
-        description: "",
-      },
-      {
-        id: "wordpress-renovation",
-        title: "WordPressを使った特集サイトの改修",
-        isExpanded: false,
-        description: "",
-      },
-      {
-        id: "accessibility",
-        title: "アクセシビリティ向上 (details/summaryタグやaria属性の導入)",
-        isExpanded: false,
-        description: "",
+        description:
+          "コードの肥大化やサイトの読み込み速度の低下などの問題の解決策として、フロント部分をNuxt.jsに分割するプロジェクトを担当。動的な情報出力や機能を除く、見た目の部分だけをNuxt.js上で再現することに成功。Piniaによる状態管理とスタイリングの連動などを実現した（現在は会社都合でプロジェクト凍結中）",
       },
     ],
     articles: [
@@ -64,7 +75,16 @@ const companies = ref([
   {
     id: "studio-nnc",
     name: "合同会社 STUDIO NNC",
-    role: "WF・デザイン・コーディング",
+    role: [
+      "HTML",
+      "CSS",
+      "Sass",
+      "JavaScript",
+      "jQuery",
+      "Vue.js",
+      "WordPress",
+      "Adobe XD",
+    ],
     type: "制作会社",
     status: "前職",
     year: "2020",
@@ -190,7 +210,11 @@ onMounted(() => {
                   <!-- 会社情報 -->
                   <div class="p-company__info">
                     <h3 class="p-company__name">{{ company.name }}</h3>
-                    <p class="p-company__role">{{ company.role }}</p>
+                    <ul class="p-company__role">
+                      <li v-for="role in company.role" :key="role">
+                        {{ role }}
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 <div class="p-company__body">
@@ -198,7 +222,7 @@ onMounted(() => {
                   <div class="p-company__section">
                     <h4 class="p-company__sectionTitle">主な業務内容</h4>
                     <div class="p-company__sectionBody">
-                      <p>{{ company.mainTasks }}</p>
+                      <p v-html="company.mainTasks"></p>
                     </div>
                   </div>
                   <!-- 主な担当プロジェクト -->
@@ -375,7 +399,6 @@ onMounted(() => {
     padding-top: 2em;
   }
 }
-
 .p-company {
   .p-company__wrapper {
     position: relative;
@@ -418,6 +441,16 @@ onMounted(() => {
     font-weight: var(--font-weight-bold);
     color: var(--color-white-light);
   }
+  .p-company__role {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.24rem;
+  }
+  .p-company__role > li + li::before {
+    content: "/";
+    margin: 0 0.5em;
+    color: var(--color-text-tertiary);
+  }
   .p-company__body {
     margin-top: var(--size-28);
   }
@@ -445,18 +478,22 @@ onMounted(() => {
     overflow: hidden;
     cursor: pointer;
   }
+  .p-project__arrow {
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+  }
+  .p-project__inner[open] .p-project__arrow {
+    transform: translateY(-50%) rotate(180deg);
+  }
   .p-project__title {
     position: relative;
     padding: var(--size-12) var(--size-24);
     padding-right: 2em;
     font-weight: var(--font-weight-medium);
     color: var(--color-white-dark);
-  }
-  .p-project__arrow {
-    position: absolute;
-    top: 50%;
-    right: 1em;
-    transform: translateY(-50%);
   }
   .p-project__body {
     padding: 0 var(--size-24) var(--size-20);
@@ -517,37 +554,6 @@ onMounted(() => {
     color: var(--color-white-dark);
     font-size: 1.6rem;
     font-weight: var(--font-weight-medium);
-  }
-}
-
-/* レスポンシブデザイン */
-@media (max-width: 768px) {
-  .p-works {
-    padding: var(--size-20) var(--size-16);
-  }
-
-  .p-works__timeline-line {
-    left: var(--size-16);
-  }
-
-  .p-works__timeline-year {
-    left: var(--size-16);
-  }
-
-  .p-company {
-    padding: var(--size-20);
-  }
-
-  .p-company__name {
-    font-size: 2rem;
-  }
-
-  .p-company__project-header {
-    padding: var(--size-12) var(--size-16);
-  }
-
-  .p-company__project-title {
-    font-size: 1.4rem;
   }
 }
 </style>
