@@ -15,11 +15,10 @@
 
 <style scoped>
 .p-home {
-  .p-home__account {
-    margin-top: 0em;
-  }
   .p-home__links {
+    max-width: 600px;
     margin-top: var(--size-32);
+    margin-inline: auto;
   }
 }
 </style>
