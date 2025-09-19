@@ -7,7 +7,7 @@ definePageMeta({
 });
 
 // 会社情報のデータ
-const companies = ref([
+const companies = [
   {
     id: "lifemap",
     name: "株式会社 ライフマップ",
@@ -91,65 +91,32 @@ const companies = ref([
     mainTasks:
       "マークアップエンジニアとして、主にコーディングを担当する。デザイナーの稼働状況や案件の特性に応じて、WF・デザインの制作も行う。",
   },
-]);
+];
 
-// WordPress REST APIのレスポンス型を定義
+// WordPress REST APIで取得したデータ型を定義
 interface WebPost {
   id: number;
-  date: string;
-  link: string;
   title: { rendered: string };
-  content: { rendered: string };
-  excerpt: { rendered: string };
   acf: {
     web__date: string;
     web__thumb: string;
   };
-  _embedded?: {
-    "wp:featuredmedia"?: Array<{
-      source_url: string;
-      alt_text: string;
-    }>;
-  };
 }
 
-// コンポーネントの状態管理
-const apiData = ref<WebPost[]>([]);
-const isLoading = ref(false);
-const error = ref<string | null>(null);
+const siteDate = ref<WebPost[]>([]);
+const isSiteLoading = ref<boolean>(false);
+const isSiteError = ref<string>("");
 
-// WordPress REST APIからデータを取得する関数
-const fetchWebData = async (): Promise<void> => {
-  isLoading.value = true;
-  error.value = null;
-
+const fetchWebData = async () => {
+  isSiteLoading.value = true;
   try {
-    const response = await fetch(
-      "https://romanstein.jp/wp-json/wp/v2/web?_embed",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    siteDate.value = await $fetch<WebPost[]>(
+      "https://romanstein.jp/wp-json/wp/v2/web?_embed"
     );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = (await response.json()) as WebPost[];
-
-    if (!Array.isArray(data)) {
-      throw new Error("API response is not an array");
-    }
-
-    apiData.value = data;
-  } catch (err) {
-    error.value = "データの取得に失敗しました";
-    console.error("APIデータの取得エラー:", err);
+  } catch {
+    isSiteError.value = "データの取得に失敗しました";
   } finally {
-    isLoading.value = false;
+    isSiteLoading.value = false;
   }
 };
 
@@ -166,167 +133,19 @@ onMounted(() => {
         <div class="p-works__inner">
           <!-- タイムライン -->
           <div class="p-works__timeline">
-            <div class="p-works__year">2025</div>
-            <div class="p-works__line"></div>
-            <div class="p-works__year">2020</div>
+            <WorksTimeline />
           </div>
           <!-- 会社情報カード -->
           <div class="p-works__companies">
-            <div
+            <WorksCompany
               v-for="company in companies"
               :key="company.id"
-              class="p-company"
-            >
-              <div class="p-company__wrapper">
-                <div class="p-company__head">
-                  <!-- タグ -->
-                  <div class="p-company__tags">
-                    <span class="p-company__tag">{{ company.type }}</span>
-                    <span class="p-company__tag">{{ company.status }}</span>
-                  </div>
-                  <!-- 会社情報 -->
-                  <div class="p-company__info">
-                    <h3 class="p-company__name">{{ company.name }}</h3>
-                    <ul class="p-company__role">
-                      <li v-for="role in company.role" :key="role">
-                        {{ role }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="p-company__body">
-                  <!-- 主な業務内容 -->
-                  <div class="p-company__section">
-                    <h4 class="p-company__sectionTitle">主な業務内容</h4>
-                    <div class="p-company__sectionBody">
-                      <p v-html="company.mainTasks"></p>
-                    </div>
-                  </div>
-                  <!-- 主な担当プロジェクト -->
-                  <div v-if="company.id === 'lifemap'">
-                    <div class="p-company__section">
-                      <h4 class="p-company__sectionTitle">
-                        主な担当プロジェクト
-                      </h4>
-                      <div class="p-company__sectionBody">
-                        <div class="p-company__projects">
-                          <div
-                            class="p-project"
-                            v-for="project in company.projects"
-                            :key="project.id"
-                          >
-                            <details class="p-project__inner">
-                              <summary class="p-project__title">
-                                <span>{{ project.title }}</span>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="9.433"
-                                  height="8.473"
-                                  viewBox="0 0 9.433 8.473"
-                                  class="p-project__arrow"
-                                >
-                                  <path
-                                    d="M4.651.62a.4.4,0,0,1,.7,0L9.665,8.293a.4.4,0,0,1-.349.6H.684a.4.4,0,0,1-.349-.6Z"
-                                    transform="translate(9.717 8.889) rotate(180)"
-                                    fill="#4d4d4d"
-                                  />
-                                </svg>
-                              </summary>
-                              <div
-                                :id="`project-${project.id}`"
-                                class="p-project__body"
-                              >
-                                <p class="p-project__description">
-                                  {{ project.description }}
-                                </p>
-                              </div>
-                            </details>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 主な制作実績 -->
-                  <div v-if="company.id === 'studio-nnc'">
-                    <div class="p-company__section">
-                      <h4 class="p-company__sectionTitle">主な制作実績</h4>
-                      <div class="p-company__sectionBody">
-                        <div class="p-company__projects">
-                          <!-- ローディング状態 -->
-                          <div v-if="isLoading" class="loading">
-                            <CommonLoading />
-                          </div>
-
-                          <!-- エラー状態 -->
-                          <div v-else-if="error" class="error">
-                            <p>{{ error }}</p>
-                            <button @click="fetchWebData" class="retry-button">
-                              再試行
-                            </button>
-                          </div>
-
-                          <!-- データ表示 -->
-                          <div v-else class="p-company__projects">
-                            <div v-for="post in apiData" :key="post.id">
-                              <div class="p-sites">
-                                <NuxtLink
-                                  :to="`/works/${post.id}`"
-                                  class="p-sites__link"
-                                >
-                                  <div class="p-sites__thumbnail">
-                                    <img :src="post.acf.web__thumb" alt="" />
-                                  </div>
-                                  <div class="p-sites__text">
-                                    <p class="p-sites__year">
-                                      {{ post.acf.web__date }}
-                                    </p>
-                                    <h3 class="p-sites__title">
-                                      {{ post.title.rendered }}
-                                    </h3>
-                                  </div>
-                                </NuxtLink>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- 技術記事 -->
-                  <div v-if="company.articles">
-                    <div class="p-company__section">
-                      <h4 class="p-company__sectionTitle">開発記事</h4>
-                      <div class="p-company__sectionBody">
-                        <div class="p-article">
-                          <p class="p-article__description">
-                            エンジニアのための新しい情報共有コミュニティ<a
-                              href="https://zenn.dev/about"
-                              target="_blank"
-                              >「Zenn」</a
-                            >にて、開発記事を執筆・発信。<br />記事の内容は、CSSやVue等のフロントエンドの内容が中心。
-                          </p>
-                          <ul class="p-article__list">
-                            <li
-                              v-for="article in company.articles"
-                              :key="article.title"
-                              class="p-article__item"
-                            >
-                              <a
-                                :href="article.href"
-                                class="p-article__link"
-                                target="_blank"
-                              >
-                                {{ article.title }}
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              :company="company"
+              :site-data="siteDate"
+              :is-site-loading="isSiteLoading"
+              :is-site-error="isSiteError"
+              :on-retry="fetchWebData"
+            />
           </div>
         </div>
       </div>
@@ -341,195 +160,11 @@ onMounted(() => {
     grid-template-columns: 80px 1fr;
     gap: 2em;
   }
-  /* タイムライン */
-  .p-works__timeline {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .p-works__line {
-    width: 1px;
-    height: 100%;
-    margin-inline: auto;
-    background-color: var(--color-border);
-  }
-  .p-works__year {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 0 var(--size-16);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-2xl);
-    background-color: var(--color-black-light);
-    font-weight: var(--font-weight-bold);
-    font-style: italic;
-    text-align: center;
-  }
-  /* 会社情報カード */
   .p-works__companies {
     display: flex;
     flex-direction: column;
     gap: var(--size-40);
     padding-top: 2em;
-  }
-}
-.p-company {
-  .p-company__wrapper {
-    position: relative;
-    padding: var(--size-24);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background-color: var(--color-black-dark);
-  }
-  .p-company__wrapper::before {
-    content: "";
-    position: absolute;
-    top: var(--size-40);
-    right: 100%;
-    display: block;
-    width: 69px;
-    height: 1px;
-    background-color: var(--color-border);
-  }
-  .p-company__head {
-    padding-bottom: var(--size-20);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .p-company__tags {
-    display: flex;
-    gap: var(--size-8);
-  }
-  .p-company__tag {
-    padding: var(--size-4) var(--size-16);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    background-color: var(--color-black-base);
-    color: var(--color-text-pimary);
-    font-size: 1.2rem;
-  }
-  .p-company__info {
-    margin-top: var(--size-8);
-  }
-  .p-company__name {
-    font-size: 2.4rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-white-light);
-  }
-  .p-company__role {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 1.24rem;
-  }
-  .p-company__role > li + li::before {
-    content: "/";
-    margin: 0 0.5em;
-    color: var(--color-text-tertiary);
-  }
-  .p-company__body {
-    margin-top: var(--size-28);
-  }
-  .p-company__section {
-    margin-top: var(--size-24);
-  }
-  .p-company__sectionTitle {
-    font-size: 1.6rem;
-    font-weight: var(--font-weight-medium);
-    color: var(--color-white-dark);
-  }
-  .p-company__sectionBody {
-    margin-top: var(--size-8);
-  }
-  .p-company__projects {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-4);
-  }
-}
-.p-project {
-  .p-project__inner {
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-light);
-    overflow: hidden;
-    cursor: pointer;
-  }
-  .p-project__arrow {
-    position: absolute;
-    top: 50%;
-    right: 1em;
-    transform: translateY(-50%);
-    transition: transform 0.2s ease;
-  }
-  .p-project__inner[open] .p-project__arrow {
-    transform: translateY(-50%) rotate(180deg);
-  }
-  .p-project__title {
-    position: relative;
-    padding: var(--size-12) var(--size-24);
-    padding-right: 2em;
-    font-weight: var(--font-weight-medium);
-    color: var(--color-white-dark);
-  }
-  .p-project__body {
-    padding: 0 var(--size-24) var(--size-20);
-  }
-}
-.p-article {
-  .p-article__list {
-    margin-top: 0.4em;
-  }
-  .p-article__item {
-    position: relative;
-    padding-left: 1em;
-    text-indent: -1em;
-    margin-bottom: var(--size-8);
-    color: var(--color-text-primary);
-  }
-  .p-article__item::before {
-    content: "•";
-    margin-right: var(--size-4);
-    color: var(--color-text-secondary);
-  }
-  .p-article__link {
-    color: var(--color-white-light);
-    text-decoration: underline;
-    transition: color 0.2s ease;
-  }
-  .p-article__link:hover {
-    color: var(--color-text-primary);
-  }
-}
-.p-sites {
-  .p-sites__link {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: var(--size-24);
-    padding: var(--size-12) var(--size-24);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-light);
-    transition: background-color 0.24s var(--easing-outExpo);
-  }
-  .p-sites__link:hover {
-    background-color: var(--color-black-base);
-  }
-  .p-sites__thumbnail {
-    background-color: var(--color-black-light);
-    img {
-      border-radius: var(--size-4);
-    }
-  }
-  .p-sites__text {
-    padding-top: 1em;
-  }
-  .p-sites__year {
-    color: var(--color-text-tertiary);
-    font-size: 1.2rem;
-    font-weight: var(--font-weight-bold);
-  }
-  .p-sites__title {
-    color: var(--color-white-dark);
-    font-size: 1.6rem;
-    font-weight: var(--font-weight-medium);
   }
 }
 </style>

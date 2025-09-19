@@ -28,105 +28,97 @@ interface WebPostDetail {
 }
 
 const route = useRoute();
-const router = useRouter();
-const postId = computed(() => Number(route.params.id));
+const webPostId = computed(() => Number(route.params.id));
 
-const post = ref<WebPostDetail | null>(null);
-const isLoading = ref<boolean>(false);
-const error = ref<string | null>(null);
+const webPost = ref<WebPostDetail | null>(null);
+const isWebPostLoading = ref<boolean>(false);
+const isWebPostError = ref<string>("");
 
-const fetchPost = async () => {
-  if (!postId.value || Number.isNaN(postId.value)) {
-    error.value = "不正なIDです";
-    return;
-  }
-  isLoading.value = true;
-  error.value = null;
+const fetchWebPost = async () => {
+  isWebPostLoading.value = true;
   try {
-    const res = await fetch(
-      `https://romanstein.jp/wp-json/wp/v2/web/${postId.value}?_embed`,
-      { headers: { "Content-Type": "application/json" } }
+    webPost.value = await $fetch<WebPostDetail>(
+      `https://romanstein.jp/wp-json/wp/v2/web/${webPostId.value}?_embed`
     );
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = (await res.json()) as WebPostDetail;
-    post.value = data;
-  } catch (e) {
-    console.error(e);
-    error.value = "データの取得に失敗しました";
+  } catch {
+    isWebPostError.value = "データの取得に失敗しました";
   } finally {
-    isLoading.value = false;
+    isWebPostLoading.value = false;
   }
 };
 
-onMounted(fetchPost);
-watch(() => route.params.id, fetchPost);
+onMounted(fetchWebPost);
+watch(() => route.params.id, fetchWebPost);
 </script>
 
 <template>
-  <div class="p-work">
-    <div class="p-work__wrapper">
-      <div class="p-work__container">
-        <div class="p-work__inner">
-          <div v-if="isLoading" class="p-work__loading">
+  <div class="p-post">
+    <div class="p-post__wrapper">
+      <div class="p-post__container">
+        <div class="p-post__inner">
+          <div v-if="isWebPostLoading" class="p-post__loading">
             <CommonLoading />
           </div>
-          <div v-else-if="error" class="p-work__error">
-            <p>{{ error }}</p>
-            <button class="p-work-detail__retry" @click="fetchPost">
+          <div v-else-if="isWebPostError" class="p-post__error">
+            <p>{{ isWebPostError }}</p>
+            <CommonRetryButton @click="fetchWebPost">
               再試行
-            </button>
+            </CommonRetryButton>
           </div>
-          <div v-else-if="post" class="p-work__main">
-            <article class="p-work__article">
-              <header class="p-work__header">
-                <figure class="p-work__figure">
+          <div v-else-if="webPost" class="p-post__main">
+            <article class="p-post__article">
+              <header class="p-post__header">
+                <figure class="p-post__figure">
                   <img
                     :src="
-                      post.acf?.web__thumb ||
-                      post._embedded?.['wp:featuredmedia']?.[0]?.source_url
+                      webPost.acf?.web__thumb ||
+                      webPost._embedded?.['wp:featuredmedia']?.[0]?.source_url
                     "
                     :alt="
-                      post._embedded?.['wp:featuredmedia']?.[0]?.alt_text ||
-                      post.title.rendered
+                      webPost._embedded?.['wp:featuredmedia']?.[0]?.alt_text ||
+                      webPost.title.rendered
                     "
                   />
                 </figure>
-                <div class="p-work__meta">
-                  <p class="p-work__date">
+                <div class="p-post__meta">
+                  <p class="p-post__date">
                     {{
-                      post.acf?.web__date ||
-                      new Date(post.date).toLocaleDateString()
+                      webPost.acf?.web__date ||
+                      new Date(webPost.date).toLocaleDateString()
                     }}
                   </p>
-                  <h1 class="p-work__title" v-html="post.title.rendered"></h1>
+                  <h1
+                    class="p-post__title"
+                    v-html="webPost.title.rendered"
+                  ></h1>
                   <a
-                    v-if="post.link"
-                    :href="post.acf?.web__link"
-                    class="p-work__link"
+                    v-if="webPost.link"
+                    :href="webPost.acf?.web__link"
+                    class="p-post__link"
                     target="_blank"
-                    >{{ post.acf?.web__link }}</a
+                    >{{ webPost.acf?.web__link }}</a
                   >
                 </div>
               </header>
-              <div class="p-work__body">
-                <div class="p-work__content">
+              <div class="p-post__body">
+                <div class="p-post__content">
                   <div
-                    class="p-work__description"
-                    v-html="post.content.rendered"
+                    class="p-post__description"
+                    v-html="webPost.content.rendered"
                   />
-                  <div class="p-work__external">
-                    <CommonLinkButton :href="post.acf?.web__link">
+                  <div class="p-post__external">
+                    <CommonLinkButton :href="webPost.acf?.web__link">
                       サイトを見る
                     </CommonLinkButton>
                   </div>
                 </div>
               </div>
             </article>
-            <div class="p-work__bottom">
-              <NuxtLink to="/works" class="p-work__backButton">
-                一覧に戻る
-              </NuxtLink>
-            </div>
+          </div>
+          <div class="p-post__bottom">
+            <NuxtLink to="/works" class="p-post__backButton">
+              一覧に戻る
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -135,26 +127,26 @@ watch(() => route.params.id, fetchPost);
 </template>
 
 <style scoped>
-.p-work {
-  .p-work__container {
+.p-post {
+  .p-post__container {
     max-width: 640px;
     margin-inline: auto;
   }
-  .p-work__article {
+  .p-post__article {
     position: relative;
     padding: var(--size-28);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-black-dark);
   }
-  .p-work__header {
+  .p-post__header {
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: var(--size-20);
     padding-bottom: var(--size-20);
     border-bottom: 1px solid var(--color-border);
   }
-  .p-work__date {
+  .p-post__date {
     display: inline-block;
     padding: 0 var(--size-16);
     border: 1px solid var(--color-border);
@@ -164,33 +156,33 @@ watch(() => route.params.id, fetchPost);
     font-size: 1.2rem;
     font-weight: var(--font-weight-medium);
   }
-  .p-work__title {
+  .p-post__title {
     margin-top: var(--size-4);
     color: var(--color-white-light);
     font-size: 2.2rem;
     font-weight: var(--font-weight-medium);
   }
-  .p-work__link {
+  .p-post__link {
     display: inline-block;
     text-decoration: underline;
   }
-  .p-work__figure img {
+  .p-post__figure img {
     width: 100%;
     border-radius: var(--radius-sm);
   }
-  .p-work__body {
+  .p-post__body {
     margin-top: var(--size-20);
   }
-  .p-work__external {
+  .p-post__external {
     width: 80%;
     max-width: 240px;
     margin-inline: auto;
     margin-top: var(--size-20);
   }
-  .p-work__bottom {
+  .p-post__bottom {
     margin-top: var(--size-32);
   }
-  .p-work__backButton {
+  .p-post__backButton {
     position: relative;
     display: flex;
     justify-content: center;

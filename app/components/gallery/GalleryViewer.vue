@@ -77,7 +77,9 @@ onMounted(() => {
     <!-- エラー状態 -->
     <div v-else-if="error" class="p-illust__error">
       <p>{{ error }}</p>
-      <button @click="fetchGalleryData" class="retry-button">再試行</button>
+      <CommonRetryButton @click="fetchGalleryData">
+        データを再取得する
+      </CommonRetryButton>
     </div>
 
     <!-- ギャラリー -->
