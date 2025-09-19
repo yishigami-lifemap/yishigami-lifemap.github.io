@@ -10,73 +10,77 @@ const pageTitle = computed(() => {
 </script>
 
 <template>
-  <div>
-    <header class="l-header">
-      <div class="l-header__navigation">
-        <CommonNavigation />
-      </div>
-      <div class="l-header__pageTitle">
-        <CommonPageTitle :sub="pageTitle.sub" :main="pageTitle.main" />
-      </div>
-    </header>
-
-    <main class="l-main">
-      <div class="wrapper">
-        <div class="container">
-          <slot />
+  <div class="l-app">
+    <div class="l-app__wrapper">
+      <div class="l-app__container">
+        <div class="l-app__inner">
+          <header class="l-app__header">
+            <div class="l-app__navigation">
+              <CommonNavigation />
+            </div>
+            <div class="l-app__pageTitle">
+              <AppPageTitle :sub="pageTitle.sub" :main="pageTitle.main" />
+            </div>
+          </header>
+          <main class="l-app__main">
+            <slot />
+          </main>
+          <footer class="l-app__footer">
+            <div class="l-app__siteInfo">
+              <AppSiteInfo />
+            </div>
+            <div class="l-app__navigation l-app__navigation--bottom">
+              <CommonNavigation />
+            </div>
+          </footer>
         </div>
       </div>
-    </main>
-    <AppFooter />
-    <div class="l-footer__navigation">
-      <CommonNavigation />
     </div>
   </div>
 </template>
 
 <style scoped>
-.l-main {
-  .wrapper {
+.l-app {
+  .l-app__wrapper {
     position: relative;
-    min-height: 50dvh;
-    padding-block: var(--size-40) var(--size-120);
+    padding-block: 32px 124px;
   }
-  /* .wrapper::before {
+  .l-app__wrapper::before {
     content: "Romanstein";
     position: fixed;
-    top: 0;
-    left: 0;
-    display: grid;
-    place-content: center;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-weight: var(--font-weight-bold);
     font-style: italic;
     font-size: 12rem;
     color: hsla(0, 0%, 24%, 0.2);
-  } */
-  .container {
-    position: relative;
-    max-width: var(--container-md);
-    margin-inline: auto;
   }
-}
-.l-header {
-  .l-header__navigation {
+  .l-app__container {
+    position: relative;
+  }
+  .l-app__navigation {
     width: 100%;
     max-width: 580px;
     margin-inline: auto;
   }
-  .l-header__pageTitle {
-    margin-top: var(--size-24);
+  .l-app__navigation--bottom {
+    position: fixed;
+    bottom: var(--size-20);
+    left: 50%;
+    transform: translateX(-50%);
   }
-}
-.l-footer__navigation {
-  position: fixed;
-  bottom: var(--size-20);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 580px;
+  .l-app__pageTitle {
+    margin-top: var(--size-40);
+  }
+  .l-app__main {
+    position: relative;
+    max-width: var(--container-md);
+    margin-top: 80px;
+    margin-inline: auto;
+  }
+  .l-app__footer {
+    margin-top: 100px;
+  }
 }
 </style>

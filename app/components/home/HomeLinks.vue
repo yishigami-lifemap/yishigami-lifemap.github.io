@@ -31,21 +31,21 @@ const links: LinkItem[] = [
 
 <template>
   <section class="p-links">
-    <div class="wrapper">
-      <div class="container">
-        <ul class="list">
+    <div class="p-links__wrapper">
+      <div class="p-links__container">
+        <ul class="p-links__list">
           <li v-for="link in links" :key="link.to">
-            <NuxtLink :to="link.to" class="anchor">
-              <dl class="item">
-                <dt class="head">
-                  <p class="main">{{ link.en }}</p>
-                  <p class="sub">{{ link.jp }}</p>
+            <NuxtLink :to="link.to" class="p-links__anchor">
+              <dl class="p-links__item">
+                <dt class="p-links__head">
+                  <p class="p-links__main">{{ link.en }}</p>
+                  <p class="p-links__sub">{{ link.jp }}</p>
                 </dt>
-                <dd class="body">
-                  <p class="description">{{ link.description }}</p>
+                <dd class="p-links__body">
+                  <p class="p-links__description">{{ link.description }}</p>
                 </dd>
               </dl>
-              <span class="arrow">
+              <span class="p-links__arrow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="12"
@@ -69,56 +69,60 @@ const links: LinkItem[] = [
 
 <style scoped>
 .p-links {
-  .container {
+  .p-links__container {
     max-width: 600px;
     margin-inline: auto;
   }
-  .list {
+  .p-links__list {
     display: flex;
     flex-direction: column;
     gap: var(--size-8);
   }
-  .anchor {
+  .p-links__anchor {
     position: relative;
     display: block;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     background-color: var(--color-black-dark);
   }
-  .item {
+  .p-links__anchor:hover .p-links__arrow {
+    transform: translateX(8px) translateY(-50%);
+  }
+  .p-links__item {
     position: relative;
     display: grid;
     grid-template-columns: 140px 1fr;
     align-items: center;
     padding: var(--size-20) var(--size-32);
   }
-  .head {
+  .p-links__head {
     position: relative;
     border-right: 1px solid var(--color-border);
     text-align: center;
   }
-  .main {
+  .p-links__main {
     color: var(--color-white-dark);
     font-size: 2rem;
     font-weight: var(--font-weight-bold);
   }
-  .main:first-letter {
+  .p-links__main:first-letter {
     text-transform: uppercase;
   }
-  .sub {
+  .p-links__sub {
     letter-spacing: 0.1em;
   }
-  .body {
+  .p-links__body {
     padding-left: var(--size-32);
   }
-  .description {
+  .p-links__description {
     color: var(--color-white-dark);
   }
-  .arrow {
+  .p-links__arrow {
     position: absolute;
     top: 50%;
     right: 32px;
     transform: translateY(-50%);
+    transition: transform 0.24s var(--easing-outExpo);
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section class="p-account">
-    <div class="list">
+    <div class="p-account__list">
       <CommonGitHubIcon />
       <CommonInstagramIcon />
     </div>
@@ -9,7 +9,7 @@
 
 <style scoped>
 .p-account {
-  .list {
+  .p-account__list {
     display: flex;
     justify-content: center;
     align-items: center;

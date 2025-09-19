@@ -269,24 +269,22 @@ onMounted(() => {
                           <div v-else class="p-company__projects">
                             <div v-for="post in apiData" :key="post.id">
                               <div class="p-sites">
-                                <div class="p-sites__inner">
-                                  <NuxtLink
-                                    :to="`/works/${post.id}`"
-                                    class="p-sites__link"
-                                  >
-                                    <div class="p-sites__thumbnail">
-                                      <img :src="post.acf.web__thumb" alt="" />
-                                    </div>
-                                    <div class="p-sites__text">
-                                      <p class="p-sites__year">
-                                        {{ post.acf.web__date }}
-                                      </p>
-                                      <h3 class="p-sites__title">
-                                        {{ post.title.rendered }}
-                                      </h3>
-                                    </div>
-                                  </NuxtLink>
-                                </div>
+                                <NuxtLink
+                                  :to="`/works/${post.id}`"
+                                  class="p-sites__link"
+                                >
+                                  <div class="p-sites__thumbnail">
+                                    <img :src="post.acf.web__thumb" alt="" />
+                                  </div>
+                                  <div class="p-sites__text">
+                                    <p class="p-sites__year">
+                                      {{ post.acf.web__date }}
+                                    </p>
+                                    <h3 class="p-sites__title">
+                                      {{ post.title.rendered }}
+                                    </h3>
+                                  </div>
+                                </NuxtLink>
                               </div>
                             </div>
                           </div>
@@ -390,7 +388,7 @@ onMounted(() => {
     top: var(--size-40);
     right: 100%;
     display: block;
-    width: 5em;
+    width: 69px;
     height: 1px;
     background-color: var(--color-border);
   }
@@ -502,15 +500,17 @@ onMounted(() => {
   }
 }
 .p-sites {
-  .p-sites__inner {
-    border-radius: var(--radius-sm);
-    background-color: var(--color-black-light);
-  }
   .p-sites__link {
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: var(--size-24);
-    padding: var(--size-16) var(--size-24);
+    padding: var(--size-12) var(--size-24);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-black-light);
+    transition: background-color 0.24s var(--easing-outExpo);
+  }
+  .p-sites__link:hover {
+    background-color: var(--color-black-base);
   }
   .p-sites__thumbnail {
     background-color: var(--color-black-light);
