@@ -36,7 +36,7 @@
   .l-footer__wrapper {
     position: relative;
     border-top: 1px solid var(--color-border);
-    padding-block: var(--size-32) var(--size-80);
+    padding-block: var(--size-32) var(--size-120);
     text-align: center;
   }
   .l-footer__wrapper::after {

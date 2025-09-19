@@ -9,27 +9,28 @@ const main = computed(() => props.main ?? "");
 
 <template>
   <h1 class="c-pageTitle">
-    <span class="sub">{{ sub }}</span>
-    <span class="main">{{ main }}</span>
+    <span class="c-pageTitle__sub">{{ sub }}</span>
+    <span class="c-pageTitle__main">{{ main }}</span>
   </h1>
 </template>
 
 <style scoped>
 .c-pageTitle {
-  .sub {
+  .c-pageTitle__sub {
     display: block;
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.15em;
     text-align: center;
   }
-  .main {
+  .c-pageTitle__main {
     display: block;
     font-size: 7.2rem;
     font-weight: var(--font-weight-bold);
     color: var(--color-white-light);
     text-align: center;
+    line-height: 1;
   }
-  .main::first-letter {
+  .c-pageTitle__main::first-letter {
     text-transform: uppercase;
   }
 }

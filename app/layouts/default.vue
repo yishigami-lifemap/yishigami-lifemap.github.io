@@ -11,8 +11,15 @@ const pageTitle = computed(() => {
 
 <template>
   <div>
-    <AppHeader />
-    <CommonPageTitle :sub="pageTitle.sub" :main="pageTitle.main" />
+    <header class="l-header">
+      <div class="l-header__navigation">
+        <CommonNavigation />
+      </div>
+      <div class="l-header__pageTitle">
+        <CommonPageTitle :sub="pageTitle.sub" :main="pageTitle.main" />
+      </div>
+    </header>
+
     <main class="l-main">
       <div class="wrapper">
         <div class="container">
@@ -21,6 +28,9 @@ const pageTitle = computed(() => {
       </div>
     </main>
     <AppFooter />
+    <div class="l-footer__navigation">
+      <CommonNavigation />
+    </div>
   </div>
 </template>
 
@@ -50,5 +60,23 @@ const pageTitle = computed(() => {
     max-width: var(--container-md);
     margin-inline: auto;
   }
+}
+.l-header {
+  .l-header__navigation {
+    width: 100%;
+    max-width: 580px;
+    margin-inline: auto;
+  }
+  .l-header__pageTitle {
+    margin-top: var(--size-24);
+  }
+}
+.l-footer__navigation {
+  position: fixed;
+  bottom: var(--size-20);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 580px;
 }
 </style>

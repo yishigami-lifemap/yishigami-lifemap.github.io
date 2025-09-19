@@ -3,7 +3,7 @@
     <a
       href="https://github.com/yishigami-lifemap/yishigami-lifemap.github.io/settings/pages"
       target="_blank"
-      class="anchor"
+      class="c-githubIcon__anchor"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -27,12 +27,16 @@
 
 <style scoped>
 .c-githubIcon {
-  .anchor {
+  .c-githubIcon__anchor {
     display: grid;
     place-content: center;
     padding: var(--size-8) var(--size-12);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+    transition: background-color 0.2s var(--easing-outExpo);
+  }
+  .c-githubIcon__anchor:hover {
+    background-color: var(--color-black-light);
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <a
       href="https://www.instagram.com/romanstein_jp/"
       target="_blank"
-      class="anchor"
+      class="c-instagramIcon__anchor"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -23,12 +23,16 @@
 
 <style scoped>
 .c-instagramIcon {
-  .anchor {
+  .c-instagramIcon__anchor {
     display: grid;
     place-content: center;
     padding: var(--size-8) var(--size-12);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+    transition: background-color 0.2s var(--easing-outExpo);
+  }
+  .c-instagramIcon__anchor:hover {
+    background-color: var(--color-black-light);
   }
 }
 </style>

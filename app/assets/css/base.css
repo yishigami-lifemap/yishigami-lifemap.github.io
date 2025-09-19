@@ -68,6 +68,9 @@
 
   /* container */
   --container-md: 800px;
+
+  /* easing */
+  --easing-outExpo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
