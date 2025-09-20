@@ -236,7 +236,7 @@ const skillGroups = computed(() => {
     }
     .p-skill__toolCard {
       display: grid;
-      grid-template-columns: 32% 1fr;
+      grid-template-columns: 36% 1fr;
       padding: 2cqw;
     }
     .p-skill__toolValue {
