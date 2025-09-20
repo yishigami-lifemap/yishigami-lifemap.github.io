@@ -68,7 +68,9 @@ const links: LinkItem[] = [
   .p-links__list {
     display: flex;
     flex-direction: column;
-    gap: var(--size-8);
+    gap: 8px;
+    container-type: inline-size;
+    container-name: linksList;
   }
   .p-links__anchor {
     position: relative;
@@ -85,7 +87,7 @@ const links: LinkItem[] = [
     display: grid;
     grid-template-columns: 140px 1fr;
     align-items: center;
-    padding: var(--size-20) var(--size-32);
+    padding: 4cqw 8cqw;
   }
   .p-links__head {
     position: relative;
@@ -112,9 +114,29 @@ const links: LinkItem[] = [
   .p-links__arrow {
     position: absolute;
     top: 50%;
-    right: 32px;
+    right: 5cqw;
     transform: translateY(-50%);
     transition: transform 0.24s var(--easing-outExpo);
+  }
+  @container linksList (max-width: 580px) {
+    .p-links__head {
+      display: flex;
+      align-items: center;
+      gap: 2cqw;
+      border-right: none;
+    }
+    .p-links__sub {
+      position: relative;
+      top: 2px;
+      font-size: 1.2rem;
+    }
+    .p-links__body {
+      margin-top: 1cqw;
+      padding-left: 0;
+    }
+    .p-links__item {
+      display: block;
+    }
   }
 }
 </style>

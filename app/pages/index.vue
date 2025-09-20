@@ -15,9 +15,11 @@
 
 <style scoped>
 .p-home {
+  container-type: inline-size;
+  container-name: p-home;
   .p-home__links {
     max-width: 600px;
-    margin-top: var(--size-32);
+    margin-top: 3cqw;
     margin-inline: auto;
   }
 }

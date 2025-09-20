@@ -15,7 +15,7 @@ const pageTitle = computed(() => {
       <div class="l-app__container">
         <div class="l-app__inner">
           <header class="l-app__header">
-            <div class="l-app__navigation">
+            <div class="l-app__navigation l-app__navigation--header">
               <CommonNavigation />
             </div>
             <div class="l-app__pageTitle">
@@ -44,6 +44,8 @@ const pageTitle = computed(() => {
   .l-app__wrapper {
     position: relative;
     padding-block: 32px 124px;
+    container-type: inline-size;
+    container-name: l-app__wrapper;
   }
   .l-app__wrapper::before {
     content: "Romanstein";
@@ -51,9 +53,12 @@ const pageTitle = computed(() => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: block;
+    width: 100%;
+    text-align: center;
     font-weight: var(--font-weight-bold);
     font-style: italic;
-    font-size: 12rem;
+    font-size: clamp(4cqw, 12rem, 14cqw);
     color: hsla(0, 0%, 24%, 0.2);
   }
   .l-app__container {
@@ -66,21 +71,39 @@ const pageTitle = computed(() => {
   }
   .l-app__navigation--bottom {
     position: fixed;
-    bottom: var(--size-20);
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
   }
   .l-app__pageTitle {
-    margin-top: var(--size-40);
+    margin-top: 30px;
   }
   .l-app__main {
     position: relative;
+    width: 92%;
     max-width: var(--container-md);
-    margin-top: 80px;
+    margin-top: 64px;
     margin-inline: auto;
   }
   .l-app__footer {
     margin-top: 100px;
+  }
+  @container l-app__wrapper (max-width: 580px) {
+    .l-app__navigation--header {
+      display: none;
+    }
+    .l-app__navigation--bottom {
+      bottom: 0;
+    }
+    .l-app__pageTitle {
+      margin-top: 2cqw;
+    }
+    .l-app__main {
+      margin-top: 10cqw;
+    }
+    .l-app__footer {
+      margin-top: 20cqw;
+    }
   }
 }
 </style>

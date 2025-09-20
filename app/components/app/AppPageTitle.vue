@@ -17,12 +17,13 @@ const props = defineProps<{
   .l-pageTitle__sub {
     display: block;
     font-weight: var(--font-weight-medium);
+    font-size: clamp(1cqw, 1.4rem, 5cqw);
     letter-spacing: 0.15em;
     text-align: center;
   }
   .l-pageTitle__main {
     display: block;
-    font-size: 7.2rem;
+    font-size: clamp(4cqw, 7.2rem, 12cqw);
     font-weight: var(--font-weight-bold);
     color: var(--color-white-light);
     text-align: center;

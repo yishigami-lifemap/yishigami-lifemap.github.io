@@ -32,7 +32,7 @@ const isActive = (path: string) => {
                 :key="link.to"
                 :to="link.to"
                 class="c-navigation__link"
-                :class="{ 'c-navigation__link--active': isActive(link.to) }"
+                :class="{ 'is-current': isActive(link.to) }"
               >
                 {{ link.label }}
               </NuxtLink>
@@ -53,33 +53,35 @@ const isActive = (path: string) => {
 <style scoped>
 .c-navigation {
   .c-navigation__wrapper {
+    container: c-navigation__wrapper / inline-size;
+  }
+  .c-navigation__container {
+    padding: 4px;
+    padding-right: 20px;
     background: var(--color-black-dark);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
-  }
-  .c-navigation__container {
-    padding: var(--size-4);
-    padding-right: var(--size-20);
   }
   .c-navigation__content {
     display: grid;
     grid-template-columns: 84% 1fr;
     align-items: center;
-    gap: var(--size-8);
+    gap: 8px;
   }
   .c-navigation__textLinks {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: var(--size-4);
+    padding: 4px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
   }
   .c-navigation__link {
-    padding: var(--size-8);
+    padding: 8px;
     border-radius: var(--radius-full);
     text-align: center;
     transition: all 0.3s var(--easing-outExpo);
   }
+  .c-navigation__link.is-current,
   .c-navigation__link:hover {
     background-color: var(--color-black-base);
     font-weight: var(--font-weight-medium);
@@ -87,7 +89,22 @@ const isActive = (path: string) => {
   .c-navigation__icons {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--size-4);
+    gap: 4px;
+  }
+  @container c-navigation__wrapper (max-width: 550px) {
+    .c-navigation__container {
+      border-radius: 12px 12px 0 0;
+      padding-right: 2cqw;
+    }
+    .c-navigation__content {
+      grid-template-columns: 80% 1fr;
+    }
+    .c-navigation__textLinks {
+      border-radius: 9px;
+    }
+    .c-navigation__link {
+      border-radius: 7px;
+    }
   }
 }
 </style>
