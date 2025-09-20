@@ -40,8 +40,12 @@ const isActive = (path: string) => {
 
             <!-- アイコンリンク -->
             <dic class="c-navigation__icons">
-              <CommonGitHubIcon />
-              <CommonInstagramIcon />
+              <div class="c-navigation__github">
+                <CommonGitHubIcon />
+              </div>
+              <div class="c-navigation__instagram">
+                <CommonInstagramIcon />
+              </div>
             </dic>
           </div>
         </div>
@@ -104,6 +108,9 @@ const isActive = (path: string) => {
     }
     .c-navigation__link {
       border-radius: 7px;
+    }
+    .c-navigation__icons {
+      gap: 1cqw;
     }
   }
 }
