@@ -9,15 +9,17 @@ definePageMeta({
 <template>
   <div class="p-profile">
     <div class="p-profile__container">
-      <section class="p-profile__bio">
-        <ProfileBio />
-      </section>
-      <section class="p-profile__history">
-        <ProfileHistory />
-      </section>
-      <section class="p-profile__skill">
-        <ProfileSkill />
-      </section>
+      <div class="p-profile__inner">
+        <section class="p-profile__bio">
+          <ProfileBio />
+        </section>
+        <section class="p-profile__history">
+          <ProfileHistory />
+        </section>
+        <section class="p-profile__skill">
+          <ProfileSkill />
+        </section>
+      </div>
     </div>
   </div>
 </template>
