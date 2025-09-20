@@ -25,25 +25,34 @@ const historyItems: HistoryItem[] = [
 
 <template>
   <div class="p-history">
-    <ol class="p-history__list">
-      <li v-for="item in historyItems" :key="item.year" class="p-history__item">
-        <p class="p-history__year">{{ item.year }}</p>
-        <div class="p-history__paragraph">
-          <p>
-            {{ item.description }}
-          </p>
-        </div>
-      </li>
-    </ol>
+    <div class="p-history__wrapper">
+      <ol class="p-history__list">
+        <li
+          v-for="item in historyItems"
+          :key="item.year"
+          class="p-history__item"
+        >
+          <p class="p-history__year">{{ item.year }}</p>
+          <div class="p-history__paragraph">
+            <p>
+              {{ item.description }}
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .p-history {
+  .p-history__wrapper {
+    container: p-history__wrapper / inline-size;
+  }
   .p-history__list {
     display: flex;
     flex-direction: column;
-    gap: var(--size-16);
+    gap: 14px;
   }
   .p-history__item {
     position: relative;
@@ -54,7 +63,7 @@ const historyItems: HistoryItem[] = [
     top: -14px;
     left: 0;
     width: fit-content;
-    padding: 2px var(--size-20);
+    padding: 2px 20px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);
     background-color: var(--color-black-light);
@@ -63,7 +72,19 @@ const historyItems: HistoryItem[] = [
     font-weight: var(--font-weight-bold);
   }
   .p-history__paragraph {
-    padding: var(--size-28) var(--size-32) var(--size-24);
+    padding: 28px 32px 24px;
+  }
+  @container p-history__wrapper (max-width: 510px) {
+    .p-history__list {
+      padding-inline: 4cqw;
+    }
+    .p-history__year {
+      font-size: 1.3rem;
+    }
+    .p-history__paragraph {
+      padding: 6cqw 8cqw 4cqw;
+      font-size: 1.2rem;
+    }
   }
 }
 </style>

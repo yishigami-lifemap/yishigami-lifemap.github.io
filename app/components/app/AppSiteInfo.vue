@@ -103,6 +103,7 @@
   @container l-siteInfo__wrapper (max-width: 670px) {
     .l-siteInfo__content {
       padding-top: 6cqw;
+      padding-inline: 6cqw;
     }
     .l-siteInfo__body {
       margin-top: 2cqw;

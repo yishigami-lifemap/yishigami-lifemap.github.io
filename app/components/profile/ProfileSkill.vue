@@ -70,7 +70,7 @@ const skillGroups = computed(() => {
 </script>
 
 <template>
-  <section class="p-skill">
+  <div class="p-skill">
     <div class="p-skill__wrapper">
       <div class="p-skill__main">
         <div class="p-skill__head">
@@ -119,13 +119,16 @@ const skillGroups = computed(() => {
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>
 .p-skill {
+  .p-skill__wrapper {
+    container: p-skill__wrapper / inline-size;
+  }
   .p-skill__main {
-    padding: var(--size-24);
+    padding: 24px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-black-dark);
@@ -134,7 +137,7 @@ const skillGroups = computed(() => {
     display: grid;
     grid-template-columns: 120px 1fr;
     align-items: center;
-    gap: var(--size-24);
+    gap: 24px;
   }
   .p-skill__title {
     border-right: 1px solid var(--color-border);
@@ -152,7 +155,7 @@ const skillGroups = computed(() => {
     font-weight: var(--font-weight-medium);
   }
   .p-skill__body {
-    margin-top: var(--size-20);
+    margin-top: 20px;
   }
   .p-skill__cards {
     display: flex;
@@ -160,7 +163,7 @@ const skillGroups = computed(() => {
     gap: 8px;
   }
   .p-skill__card {
-    padding: var(--size-16) var(--size-24);
+    padding: 16px 24px;
     border-radius: var(--radius-sm);
     background-color: var(--color-black-light);
   }
@@ -170,17 +173,17 @@ const skillGroups = computed(() => {
     font-weight: var(--font-weight-medium);
   }
   .p-skill__cardMain {
-    margin-top: var(--size-12);
+    margin-top: 12px;
     margin-left: 1em;
   }
   .p-skill__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--size-8);
+    gap: 8px;
   }
   .p-skill__chip {
     display: inline-block;
-    padding: var(--size-4) var(--size-12);
+    padding: 4px 12px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border);
     background-color: var(--color-black-base);
@@ -191,12 +194,12 @@ const skillGroups = computed(() => {
   .p-skill__tools {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin-top: var(--size-20);
-    padding-top: var(--size-12);
+    margin-top: 20px;
+    padding-top: 12px;
     border-top: 1px solid var(--color-border);
   }
   .p-skill__toolCard {
-    padding: var(--size-8) var(--size-16) var(--size-12);
+    padding: 8px 16px 12px;
     border-right: 1px solid var(--color-border);
   }
   .p-skill__toolLabel {
@@ -204,9 +207,41 @@ const skillGroups = computed(() => {
     font-size: 1.2rem;
   }
   .p-skill__toolValue {
-    margin-top: var(--size-8);
+    margin-top: 8px;
     color: var(--color-white-light);
     font-size: 1.3rem;
+  }
+  @container p-skill__wrapper (max-width: 550px) {
+    .p-skill__head {
+      grid-template-columns: 1fr;
+      gap: 1cqw;
+    }
+    .p-skill__title {
+      border-right: unset;
+    }
+    .p-skill__body {
+      margin-top: 4cqw;
+    }
+    .p-skill__card {
+      padding: 3cqw 5cqw;
+    }
+    .p-skill__cardMain {
+      margin-top: 1cqw;
+    }
+    .p-skill__chips {
+      gap: 4px;
+    }
+    .p-skill__tools {
+      grid-template-columns: 1fr;
+    }
+    .p-skill__toolCard {
+      display: grid;
+      grid-template-columns: 32% 1fr;
+      padding: 2cqw;
+    }
+    .p-skill__toolValue {
+      margin-top: 0;
+    }
   }
 }
 </style>
