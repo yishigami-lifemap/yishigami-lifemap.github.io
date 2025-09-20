@@ -98,21 +98,18 @@ const isActive = (path: string) => {
   @container c-navigation__wrapper (max-width: 550px) {
     .c-navigation__container {
       border-radius: 12px 12px 0 0;
-      padding-right: 2cqw;
+      padding: 4px;
     }
     .c-navigation__content {
-      grid-template-columns: 88% 1fr;
+      grid-template-columns: 100%;
     }
     .c-navigation__textLinks {
       border-radius: 9px;
     }
     .c-navigation__link {
-      border-radius: 7px;
+      border-radius: 6px;
     }
     .c-navigation__icons {
-      display: block;
-    }
-    .c-navigation__github {
       display: none;
     }
   }
