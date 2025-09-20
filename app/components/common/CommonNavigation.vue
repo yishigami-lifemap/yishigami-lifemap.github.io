@@ -75,6 +75,7 @@ const isActive = (path: string) => {
   .c-navigation__textLinks {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
     padding: 4px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);

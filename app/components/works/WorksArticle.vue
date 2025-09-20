@@ -37,12 +37,12 @@ interface Article {
     position: relative;
     padding-left: 1em;
     text-indent: -1em;
-    margin-bottom: var(--size-8);
+    margin-bottom: 8px;
     color: var(--color-text-primary);
   }
   .p-article__item::before {
     content: "•";
-    margin-right: var(--size-4);
+    margin-right: 4px;
     color: var(--color-text-secondary);
   }
   .p-article__link {

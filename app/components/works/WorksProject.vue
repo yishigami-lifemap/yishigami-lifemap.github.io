@@ -59,13 +59,13 @@ interface Project {
   }
   .p-project__title {
     position: relative;
-    padding: var(--size-12) var(--size-24);
+    padding: 12px 24px;
     padding-right: 2em;
     font-weight: var(--font-weight-medium);
     color: var(--color-white-dark);
   }
   .p-project__body {
-    padding: 0 var(--size-24) var(--size-20);
+    padding: 0 24px 20px;
   }
 }
 </style>

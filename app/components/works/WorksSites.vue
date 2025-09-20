@@ -44,7 +44,7 @@ interface Site {
   .p-sites__link {
     display: grid;
     grid-template-columns: 200px 1fr;
-    gap: var(--size-24);
+    gap: 24px;
     padding: 12px 24px;
     border-radius: var(--radius-sm);
     background-color: var(--color-black-light);
@@ -56,7 +56,7 @@ interface Site {
   .p-sites__thumbnail {
     background-color: var(--color-black-light);
     img {
-      border-radius: var(--size-4);
+      border-radius: 4px;
     }
   }
   .p-sites__text {

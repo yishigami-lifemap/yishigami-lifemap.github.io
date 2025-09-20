@@ -30,7 +30,7 @@
   .c-githubIcon__anchor {
     display: grid;
     place-content: center;
-    padding: var(--size-8) var(--size-12);
+    padding: 8px 12px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     transition: background-color 0.2s var(--easing-outExpo);

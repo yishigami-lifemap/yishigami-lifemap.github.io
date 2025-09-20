@@ -40,7 +40,7 @@
     display: grid;
     grid-template-columns: 148px 1fr;
     align-items: center;
-    gap: var(--size-24);
+    gap: 24px;
   }
   .p-bio__figure {
     display: grid;

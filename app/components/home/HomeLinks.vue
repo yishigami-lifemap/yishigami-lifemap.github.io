@@ -109,7 +109,7 @@ const links: LinkItem[] = [
     letter-spacing: 0.1em;
   }
   .p-links__body {
-    padding-left: var(--size-32);
+    padding-left: 32px;
   }
   .p-links__description {
     color: var(--color-white-dark);

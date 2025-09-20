@@ -34,8 +34,8 @@ defineProps<{ href: string }>();
 .c-linkButton {
   position: relative;
   display: block;
-  gap: var(--size-8);
-  padding: var(--size-12) var(--size-36);
+  gap: 8px;
+  padding: 12px 36px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-full);
   background-color: var(--color-black-light);
