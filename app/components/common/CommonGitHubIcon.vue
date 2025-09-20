@@ -1,7 +1,7 @@
 <template>
   <div class="c-githubIcon">
     <a
-      href="https://github.com/yishigami-lifemap/yishigami-lifemap.github.io/settings/pages"
+      href="https://github.com/romansteinjp"
       target="_blank"
       class="c-githubIcon__anchor"
     >
