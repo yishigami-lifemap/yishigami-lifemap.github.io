@@ -101,7 +101,7 @@ const isActive = (path: string) => {
       padding-right: 2cqw;
     }
     .c-navigation__content {
-      grid-template-columns: 80% 1fr;
+      grid-template-columns: 90% 1fr;
     }
     .c-navigation__textLinks {
       border-radius: 9px;
@@ -110,7 +110,11 @@ const isActive = (path: string) => {
       border-radius: 7px;
     }
     .c-navigation__icons {
+      display: block;
       gap: 1cqw;
+    }
+    .c-navigation__github {
+      display: none;
     }
   }
 }
