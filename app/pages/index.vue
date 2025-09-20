@@ -22,7 +22,7 @@
   }
   .p-home__links {
     max-width: 600px;
-    margin-top: 3cqw;
+    margin-top: 24px;
     margin-inline: auto;
   }
 }

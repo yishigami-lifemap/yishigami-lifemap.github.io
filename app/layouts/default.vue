@@ -44,8 +44,7 @@ const pageTitle = computed(() => {
   .l-app__wrapper {
     position: relative;
     padding-block: 32px 124px;
-    container-type: inline-size;
-    container-name: l-app__wrapper;
+    container: l-app__wrapper / inline-size;
   }
   .l-app__wrapper::before {
     content: "Romanstein";
