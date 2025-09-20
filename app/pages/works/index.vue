@@ -128,23 +128,25 @@ onMounted(() => {
 
 <template>
   <div class="p-works">
-    <div class="p-works__container">
-      <div class="p-works__inner">
-        <!-- タイムライン -->
-        <div class="p-works__timeline">
-          <WorksTimeline />
-        </div>
-        <!-- 会社情報カード -->
-        <div class="p-works__companies">
-          <WorksCompany
-            v-for="company in companies"
-            :key="company.id"
-            :company="company"
-            :site-data="siteDate"
-            :is-site-loading="isSiteLoading"
-            :is-site-error="isSiteError"
-            :on-retry="fetchWebData"
-          />
+    <div class="p-works__wrapper">
+      <div class="p-works__container">
+        <div class="p-works__inner">
+          <!-- タイムライン -->
+          <div class="p-works__timeline">
+            <WorksTimeline />
+          </div>
+          <!-- 会社情報カード -->
+          <div class="p-works__companies">
+            <WorksCompany
+              v-for="company in companies"
+              :key="company.id"
+              :company="company"
+              :site-data="siteDate"
+              :is-site-loading="isSiteLoading"
+              :is-site-error="isSiteError"
+              :on-retry="fetchWebData"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -153,6 +155,9 @@ onMounted(() => {
 
 <style scoped>
 .p-works {
+  .p-works__wrapper {
+    container: p-works__wrapper / inline-size;
+  }
   .p-works__inner {
     display: grid;
     grid-template-columns: 80px 1fr;
@@ -161,8 +166,17 @@ onMounted(() => {
   .p-works__companies {
     display: flex;
     flex-direction: column;
-    gap: var(--size-40);
+    gap: 40px;
     padding-top: 2em;
+  }
+  @container p-works__wrapper (max-width: 500px) {
+    .p-works__inner {
+      grid-template-columns: 14cqw 1fr;
+      gap: 2cqw;
+    }
+    .p-works__companies {
+      gap: 10cqw;
+    }
   }
 }
 </style>

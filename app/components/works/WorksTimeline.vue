@@ -11,6 +11,7 @@
 <style scoped>
 .p-timeline {
   height: 100%;
+  container: p-timeline / inline-size;
   .p-timeline__list {
     position: relative;
     display: flex;
@@ -28,13 +29,19 @@
     position: relative;
     display: block;
     width: 100%;
-    padding: 0 var(--size-16);
+    padding-inline: 16px;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-2xl);
     background-color: var(--color-black-light);
     font-weight: var(--font-weight-bold);
     font-style: italic;
     text-align: center;
+  }
+  @container p-timeline (max-width: 79px) {
+    .p-timeline__year {
+      font-size: 1.2rem;
+      padding-inline: 2cqw;
+    }
   }
 }
 </style>
