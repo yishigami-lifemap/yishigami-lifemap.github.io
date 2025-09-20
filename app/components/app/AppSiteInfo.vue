@@ -6,7 +6,8 @@
       </div>
       <div class="l-siteInfo__body">
         <p class="l-siteInfo__detail">
-          フロントエンドエンジニア・Romansteinのポートフォリオサイトです。<br />制作会社での実績や事業会社での担当プロジェクト、スキルセット等を掲載しています。
+          フロントエンドエンジニア・Romansteinのポートフォリオサイトです。<br />制作会社での実績や事業会社での担当プロジェクト、スキルセット等を掲載しています。<br />フロントをNuxt.jsで構築し、WordPressで制作した旧ポートフォリオサイトの情報をREST
+          APIで取得する、<br />いわゆる「ヘッドレスCMS」の形式を採用しています。
         </p>
         <div class="l-siteInfo__info">
           <section class="l-siteInfo__infoSection">
@@ -57,6 +58,10 @@
     color: var(--color-white-dark);
     font-weight: var(--font-weight-medium);
     font-size: 1.6rem;
+  }
+  .l-siteInfo__detail {
+    width: fit-content;
+    margin-inline: auto;
   }
   .l-siteInfo__info {
     display: flex;
