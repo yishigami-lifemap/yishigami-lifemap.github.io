@@ -111,6 +111,9 @@
       text-align: left;
     }
     .l-siteInfo__info {
+      display: grid;
+      grid-template-columns: 60% 1fr;
+      align-items: normal;
       gap: 1.4cqw;
       margin-top: 3cqw;
     }
