@@ -30,82 +30,74 @@ const closeModal = (): void => {
 
 <template>
   <div class="p-illust">
-    <div v-if="isIllustLoading" class="p-illust__loading">
-      <CommonLoading />
-    </div>
+    <div class="p-illust__wrapper">
+      <div v-if="isIllustLoading" class="p-illust__loading">
+        <CommonLoading />
+      </div>
 
-    <!-- エラー状態 -->
-    <div v-else-if="isIllustError" class="p-illust__error">
-      <p>{{ isIllustError }}</p>
-      <CommonRetryButton @click="onRetry">
-        データを再取得する
-      </CommonRetryButton>
-    </div>
+      <!-- エラー状態 -->
+      <div v-else-if="isIllustError" class="p-illust__error">
+        <p>{{ isIllustError }}</p>
+        <CommonRetryButton @click="onRetry">
+          データを再取得する
+        </CommonRetryButton>
+      </div>
 
-    <!-- ギャラリー一覧 -->
-    <div v-else>
-      <ul class="p-illust__list">
-        <li class="p-illust__item" v-for="item in illustData" :key="item.id">
-          <div class="p-illust__thumbnail">
-            <img
-              :src="item.acf.illust__img"
-              :alt="item.title.rendered"
-              @click="openModal(item.acf.illust__img, item.title.rendered)"
-              loading="lazy"
-            />
-          </div>
-        </li>
-      </ul>
+      <!-- ギャラリー一覧 -->
+      <div v-else>
+        <ul class="p-illust__list">
+          <li class="p-illust__item" v-for="item in illustData" :key="item.id">
+            <div class="p-illust__thumbnail">
+              <img
+                :src="item.acf.illust__img"
+                :alt="item.title.rendered"
+                @click="openModal(item.acf.illust__img, item.title.rendered)"
+                loading="lazy"
+              />
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!-- モーダル -->
-    <transition>
-      <div
-        id="worksModal"
-        class="p-modal"
-        v-if="isModalActive"
-        @click="closeModal()"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-title"
-      >
-        <div class="p-modal__inner">
-          <div class="p-modal__container">
-            <div class="p-modal__main">
-              <div class="p-modal__img">
-                <img :src="selectedImage" :alt="selectedImage" />
-              </div>
+  </div>
+  <!-- モーダル -->
+  <transition>
+    <div
+      id="worksModal"
+      class="p-modal"
+      v-if="isModalActive"
+      @click="closeModal()"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="p-modal__inner">
+        <div class="p-modal__container">
+          <div class="p-modal__main">
+            <div class="p-modal__img">
+              <img :src="selectedImage" :alt="selectedImage" />
             </div>
           </div>
         </div>
       </div>
-    </transition>
-  </div>
+    </div>
+  </transition>
 </template>
 
 <style scoped>
 .p-illust {
+  .p-illust__wrapper {
+    container: p-illust__wrapper / inline-size;
+  }
   .p-illust__loading,
   .p-illust__error {
     text-align: center;
     padding: 2rem;
   }
-  .retry-button {
-    background-color: var(--color-black-dark);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  .retry-button:hover {
-    background-color: var(--color-black-light);
-  }
   .p-illust__list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: var(--size-12);
+    gap: 12px;
   }
   .p-illust__thumbnail {
     position: relative;
@@ -133,12 +125,10 @@ const closeModal = (): void => {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
   }
-  .p-illust__bottom {
-    margin-top: var(--size-40);
-  }
-  .p-illust__button {
-    width: 240px;
-    margin-inline: auto;
+  @container p-illust__wrapper (max-width: 600px) {
+    .p-illust__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 }
 .p-modal {

@@ -65,9 +65,10 @@ onMounted(() => {
 <style scoped>
 .p-gallery {
   .p-gallery__bottom {
-    margin-top: var(--size-24);
+    margin-top: 24px;
   }
   .p-gallery__link {
+    width: 90%;
     max-width: 240px;
     margin-inline: auto;
   }
