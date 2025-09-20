@@ -1,37 +1,33 @@
 <template>
-  <section class="p-bio">
-    <div class="p-bio__wrapper">
-      <div class="p-bio__container">
-        <div class="p-bio__inner">
-          <div class="p-bio__content">
-            <figure class="p-bio__figure">
-              <img
-                src="assets/images/profile/p-bio__figure@2x.png"
-                alt="Romanstein"
-                loading="lazy"
-                decoding="async"
-                width="150"
-                height="150"
-              />
-            </figure>
-            <div class="p-bio__summary">
-              <p class="p-bio__role">Web Developer</p>
-              <p class="p-bio__name">Romanstein</p>
-              <div class="p-bio__icons">
-                <CommonGitHubIcon />
-                <CommonInstagramIcon />
-              </div>
-            </div>
+  <div class="p-bio">
+    <div class="p-bio__main">
+      <div class="p-bio__content">
+        <figure class="p-bio__figure">
+          <img
+            src="assets/images/profile/p-bio__figure@2x.png"
+            alt="Romanstein"
+            loading="lazy"
+            decoding="async"
+            width="150"
+            height="150"
+          />
+        </figure>
+        <div class="p-bio__summary">
+          <p class="p-bio__role">Web Developer</p>
+          <p class="p-bio__name">Romanstein</p>
+          <div class="p-bio__icons">
+            <CommonGitHubIcon />
+            <CommonInstagramIcon />
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>
 .p-bio {
-  .p-bio__inner {
+  .p-bio__main {
     padding: var(--size-16) var(--size-24);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-full);

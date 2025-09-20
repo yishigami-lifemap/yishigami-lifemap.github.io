@@ -9,10 +9,14 @@ interface Tool {
 }
 
 // 全スキル
+// 業務レベルで利用できる：expert
+// 業務で使用した経験はあるがもっと習熟が必要：intermediate
+// 業務での使用経験なし：beginner
 const allSkills: Skill[] = [
   { name: "HTML", level: "expert" },
   { name: "CSS", level: "expert" },
   { name: "Sass", level: "expert" },
+  { name: "Tailwind CSS", level: "intermediate" },
   { name: "JavaScript", level: "expert" },
   { name: "jQuery", level: "expert" },
   { name: "TypeScript", level: "beginner" },
@@ -32,30 +36,34 @@ const tools: Tool[] = [
 
 // 習熟度ごとにグループ化
 const skillGroups = computed(() => {
+  // 各レベルのスキル名を取得する関数
+  const getSkillNamesByLevel = (targetLevel: string) => {
+    const result = [];
+    for (const skill of allSkills) {
+      if (skill.level === targetLevel) {
+        result.push(skill.name);
+      }
+    }
+    return result;
+  };
+  // レベル別のグループを作成
   const groups = [
     {
       title: "業務レベルで利用できる",
       level: "expert" as const,
-      skills: allSkills
-        .filter((skill) => skill.level === "expert")
-        .map((s) => s.name),
+      skills: getSkillNamesByLevel("expert"),
     },
     {
       title: "業務で使用した経験はあるがもっと習熟が必要",
       level: "intermediate" as const,
-      skills: allSkills
-        .filter((skill) => skill.level === "intermediate")
-        .map((s) => s.name),
+      skills: getSkillNamesByLevel("intermediate"),
     },
     {
       title: "業務での使用経験なし",
       level: "beginner" as const,
-      skills: allSkills
-        .filter((skill) => skill.level === "beginner")
-        .map((s) => s.name),
+      skills: getSkillNamesByLevel("beginner"),
     },
   ];
-
   // 空のグループを除外
   return groups.filter((group) => group.skills.length > 0);
 });
@@ -64,7 +72,7 @@ const skillGroups = computed(() => {
 <template>
   <section class="p-skill">
     <div class="p-skill__wrapper">
-      <div class="p-skill__container">
+      <div class="p-skill__main">
         <div class="p-skill__head">
           <h2 id="skills-heading" class="p-skill__title">Skills</h2>
           <ul class="p-skill__list">
@@ -116,7 +124,7 @@ const skillGroups = computed(() => {
 
 <style scoped>
 .p-skill {
-  .p-skill__container {
+  .p-skill__main {
     padding: var(--size-24);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);

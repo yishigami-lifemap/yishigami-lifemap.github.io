@@ -9,15 +9,15 @@ definePageMeta({
 <template>
   <div class="p-profile">
     <div class="p-profile__container">
-      <div class="p-profile__bio">
+      <section class="p-profile__bio">
         <ProfileBio />
-      </div>
-      <div class="p-profile__timeline">
-        <ProfileTimeline />
-      </div>
-      <div class="p-profile__skill">
+      </section>
+      <section class="p-profile__history">
+        <ProfileHistory />
+      </section>
+      <section class="p-profile__skill">
         <ProfileSkill />
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -25,10 +25,12 @@ definePageMeta({
 <style scoped>
 .p-profile {
   .p-profile__container {
-    max-width: 600px;
+    max-width: 640px;
     margin-inline: auto;
   }
-  .p-profile__timeline {
+  .p-profile__history {
+    max-width: 520px;
+    margin-inline: auto;
     margin-top: var(--size-40);
   }
   .p-profile__skill {
